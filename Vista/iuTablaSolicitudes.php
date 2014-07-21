@@ -61,8 +61,7 @@ if (!$_SESSION['id_usuario']) {
 					<th scope="col">Cliente</th>
 					<th scope="col">Ubicacion</th>
 					<th scope="col">Tipo de proyecto</th>
-                                        <th scope="col">Ingeniero responsable</th>
-					<th scope="col">Fecha de la solicitud</th>
+                                        
 				</tr>
 			</thead>
 			<tbody>
@@ -79,12 +78,11 @@ if (!$_SESSION['id_usuario']) {
                                         <td><?php echo $lista[$contador + 1] ?></td>
                                         <td><?php echo $lista[$contador + 2] ?></td>
                                         <td><?php echo $lista[$contador + 3] ?></td>
-                                        <td><?php echo $lista[$contador + 4] ?></td>
-                                        <td><?php echo $lista[$contador + 5] ?></td>
+                                        
                                     </tr>
 
                                     <?php
-                                    $contador = $contador + 6;
+                                    $contador = $contador + 4;
                                 }
                                 
                                     ?>
@@ -94,7 +92,15 @@ if (!$_SESSION['id_usuario']) {
                         </div>       
 				</ul>		
 			</div>
-			
+			<div id="sub">
+                        <h2>MENÚ</h2>
+                        <ul class="links">
+                            <li><a href="iuRegistroSolicitud.php">NUEVA SOLICITUD</a></li>
+                            <li><a href="iuTablaSolicitudes.php">PROYECTOS</a></li>
+                            <li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>					
+                        </ul>
+
+                    </div>
 		</div></div>	
 	</div>
 	

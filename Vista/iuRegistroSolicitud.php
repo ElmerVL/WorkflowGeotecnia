@@ -72,7 +72,8 @@ if (!$_SESSION['id_usuario']) {
                             <br />
                             <span>Responsable:</span>
                             <br />
-                            <select name='cbox_ingenieros' id="f3" size=1> 
+                            <select name='cbox_ingenieros' id="f3" size=1>
+                                
                             <?php
                             include '../Controlador/ControladorIngeniero.php';
                                 $controlador_ingeniero = new ControladorIngeniero();

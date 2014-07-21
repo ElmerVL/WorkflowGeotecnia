@@ -22,4 +22,26 @@ class ModeloIngeniero {
         }
         pg_close($c);
     }
+    
+    function mostrar_lista_ingeniero_seleccionado() {
+        
+        $con = new Conexion();
+        $c = $con->getConection();
+
+        $consulta_ingenieros = pg_query($c, "select idingeniero, nombres, apellidos from ingeniero;");
+
+        $array_ingenieros = array();
+        while ($f_ingenieros = pg_fetch_object($consulta_ingenieros)) {
+
+            $id_ingeniero = $f_ingenieros->idingeniero;
+            $nombre_ingeniero = $f_ingenieros->nombres;
+            $apellidos_ingeniero = $f_ingenieros->apellidos;
+
+            $array_ingenieros[] = $id_ingeniero;
+            $array_ingenieros[] = $nombre_ingeniero;
+            $array_ingenieros[] = $apellidos_ingeniero;
+        } 
+        pg_close($c);
+        return $array_ingenieros;
+    }
 }
