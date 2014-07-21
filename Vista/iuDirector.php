@@ -27,7 +27,7 @@ if (!$_SESSION['id_usuario']) {
 <ul class="hide"><li><a href="#body">Skip to content</a></li></ul>
 <div id="container">
 	<div id="header">
-	    <h1><a href="index.html">Granite<span>Glass</span></a></h1>		
+            <h1><a href="iuDirector.php">Laboratorio de <span>Geotecnia</span></a></h1>		
 	</div>
     
 	<div id="body">
@@ -38,7 +38,6 @@ if (!$_SESSION['id_usuario']) {
 		<div id="content"><div>
 			<div id="main">
                             <?php $id_usuario = $_SESSION['id_usuario'];
-                                  echo $id_usuario;
                             ?>
 
 				<h2>Consectetuer adipiscing</h2>
@@ -57,7 +56,7 @@ if (!$_SESSION['id_usuario']) {
 			<div id="sub">
                             <h2>MENÚ</h2>
 				<ul class="links">
-                                        <li><a href='iuRegistroSolicitud.php?iu=$id_usuario'>NUEVA SOLICITUD</a></li>
+                                        <li><a href='iuRegistroSolicitud.php'>NUEVA SOLICITUD</a></li>
 					<li><a href="#">PROYECTOS</a></li>
 					<li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>					
 				</ul>

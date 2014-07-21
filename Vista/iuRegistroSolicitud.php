@@ -39,38 +39,56 @@ if (!$_SESSION['id_usuario']) {
 <ul class="hide"><li><a href="#body">Skip to content</a></li></ul>
 <div id="container">
 	<div id="header">
-	    <h1><a href="index.html">Granite<span>Glass</span></a></h1>		
+            <h1><a href="iuAdministrador.php">Laboratorio de <span>Geotecnia</span></a></h1>		
 	</div>
     
 	<div id="body">
 		<ul id="nav">
-                    <li class="on"><a href="iuTecnico.php">Principal</a></li>
+                    <li class="on"><a href="iuAdministrador.php">Principal</a></li>
 			
 		</ul>
 		<div id="content"><div>
 			<div id="main">
 				<h2>Registrar solicitud</h2>
-                                <?php $id_usuario = $_SESSION['id_usuario'];
-                                  echo $id_usuario;
-                            ?>
+                                <?php $id_usuario = $_SESSION['id_usuario'];?>
 				<ul>
                                         <?php echo "<form name='ingreso_sistema' method='post' action='../Controlador/ControladorRegistroSolicitud.php?iu=$id_usuario'>"; ?>
                         <div class="text_box">
-                            <div class="login_form_row">
+
                             <span>Nombre del cliente:</span>
                             <br />
                             <input type="text" name="cliente" class="login_input" />
-                            </div>
-                            
-                            <div class="login_form_row">
+                            <br />
+                            <span>Ubicación del proyecto:</span>
+                            <br />
+                            <input type="text" name="ubicacion" class="login_input" />
+                            <br />
+                            <span>Tipo de proyecto:</span>
+                            <br />
+                            <select name='cbox_tipo' id="f3" size=1> 
+                                <option value='ensayo de laboratorio'>Ensayo de Laboratorio</option>
+                                <option value='trabajo de campo'>Trabajo de campo</option>
+                            </select>
+                            <br />
+                            <span>Responsable:</span>
+                            <br />
+                            <select name='cbox_ingenieros' id="f3" size=1> 
+                            <?php
+                            include '../Controlador/ControladorIngeniero.php';
+                                $controlador_ingeniero = new ControladorIngeniero();
+                                $controlador_ingeniero->lista_ingenieros();
+                            ?>
+                            </select>
+                            <br />
                             <span>Fecha:</span>
                             <br />
                             <input type="text" name="fecha" id="fecha_inicio" placeholder="Seleccione una fecha" required />
-                            </div>       
-                            <br />                              
+      
+                            <br />
                         <input type="submit" class="btn2" name="submit" value="Registrar" />                            
                         
                         </div>
+                                    </form>
                                         
 				</ul>		
 			</div>

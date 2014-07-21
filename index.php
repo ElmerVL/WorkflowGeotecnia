@@ -1,6 +1,6 @@
 <!DOCTYPE html >
 <head>
-	<title>Granite Glass</title>
+	<title>Workflow Geotecnia</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -14,7 +14,7 @@
 <ul class="hide"><li><a href="#body">Skip to content</a></li></ul>
 <div id="container">
 	<div id="header">
-	    <h1><a href="index.html">Granite<span>Glass</span></a></h1>		
+	    <h1><a href="index.html">Laboratorio de <span>Geotecnia</span></a></h1>		
 	</div>
     
 	<div id="body">

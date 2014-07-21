@@ -27,12 +27,12 @@ if (!$_SESSION['id_usuario']) {
 <ul class="hide"><li><a href="#body">Skip to content</a></li></ul>
 <div id="container">
 	<div id="header">
-	    <h1><a href="index.html">Granite<span>Glass</span></a></h1>		
+            <h1><a href="iuAuxiliar.php">Laboratorio de <span>Geotecnia</span></a></h1>		
 	</div>
     
 	<div id="body">
 		<ul id="nav">
-                    <li class="on"><a href="iuTecnico.php">Principal</a></li>
+                    <li class="on"><a href="iuAuxiliar.php">Principal</a></li>
 			
 		</ul>
 		<div id="content"><div>
@@ -62,9 +62,8 @@ if (!$_SESSION['id_usuario']) {
 	</div>
 	
 	<div id="footer">
-		<p class="left">&copy; 2008 Company name</p>
-		<p class="right">Template by <a href="http://www.onedollartemplates.com">One Dollar Templates</a></p>
-	</div>	
+		<p class="left">&copy; 2014 Jimena Salazar</p>
+        </div>	
 </div>	
 </body>
 </html>
