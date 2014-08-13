@@ -42,13 +42,23 @@
                         </div>
         </form>
 				<ul>
-					<li><span>Duis sodales turpis vel nisl</span></li>
-					<li><span>Sed accumsan diam lacus quis</span></li>
-					<li><span>Posuere vitae, vehicula</span></li>
-					<li><span>Consectetuer adipiscing elit</span></li>
+					<!--li><span>Capacitar estudiantes en los 
+                                                niveles de pregrado y posgrado 
+                                                en el campo de la geotecnia.</span></li-->
+					<!--li><span>Impulsar y ejecutar proyectos 
+                                                de investigación y difundir los 
+                                                resultados obtenidos a nivel 
+                                                nacional e internacional.</span></li-->
+					<li><span>Prestar servicios geotécnicos 
+                                                tanto a empresas públicas como 
+                                                privadas, nacionales o extranjeras, 
+                                                contribuyendo al desarrollo 
+                                                sostenible de la región y del país.</span></li>
 				</ul>
-				<p>Vestibulum molestie, nisl sed commodo pellentesque, risus justo sollicitudin nisl, sed accumsan 
-				diam lacus quis augue.</p>			
+				<p>	
+El Laboratorio de Geotecnia de la Universidad Mayor de San Simón, nació el 19 de
+septiembre de 1996, con el apoyo técnico de la cooperación belga dentro del plan
+de mejoramiento de la educación e investigación en el campo de la geotecnia.</p>			
 			</div>
 			<div id="sub">
                             <p><img src="Vista/img/image_l.gif" alt="An image" /></p>

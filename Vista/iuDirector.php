@@ -57,7 +57,7 @@ if (!$_SESSION['id_usuario']) {
                             <h2>MENÚ</h2>
 				<ul class="links">
                                         <li><a href='iuRegistroSolicitud.php'>NUEVA SOLICITUD</a></li>
-					<li><a href="#">PROYECTOS</a></li>
+					<li><a href="iuFiltroTablaProyectos.php">PROYECTOS</a></li>
 					<li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>					
 				</ul>
 		

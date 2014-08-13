@@ -49,7 +49,7 @@ if (!$_SESSION['id_usuario']) {
 		</ul>
 		<div id="content"><div>
 			<div id="main">
-				<h2>Lista de proyectos</h2>
+				<h2>Lista de solicitudes</h2>
                                 <?php $id_usuario = $_SESSION['id_usuario'];?>
 				<ul>
                      
@@ -57,9 +57,9 @@ if (!$_SESSION['id_usuario']) {
                 <table>
 			<thead>
 				<tr>
-					<th scope="col">Codigo de la solicitud</th>
+					<th scope="col">Código</th>
 					<th scope="col">Cliente</th>
-					<th scope="col">Ubicacion</th>
+					<th scope="col">Ubicación</th>
 					<th scope="col">Tipo de proyecto</th>
                                         
 				</tr>
@@ -96,7 +96,7 @@ if (!$_SESSION['id_usuario']) {
                         <h2>MENÚ</h2>
                         <ul class="links">
                             <li><a href="iuRegistroSolicitud.php">NUEVA SOLICITUD</a></li>
-                            <li><a href="iuTablaSolicitudes.php">PROYECTOS</a></li>
+                            <li><a href="iuFiltroTablaProyectos.php">PROYECTOS</a></li>
                             <li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>					
                         </ul>
 

@@ -25,17 +25,17 @@ if (!$_SESSION['id_usuario']) {
     <link href="js/custom-theme/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
     <script src="js/jquery-1.7.2.min.js"></script>
     <script src="js/jquery-ui-1.8.20.js"></script>
-    <script type="text/javascript" src="dynamicoptionlist.js"></script>
     <script>
         $(document).ready(function() {
             $("#fecha_inicio").datepicker({dateFormat: "yy/mm/dd", minDate: '0'});
+
             var endingDate = $(this).attr('endingDate');
 
         });
     </script>
 </head>
 
-<body onLoad="initDynamicOptionLists();">
+<body>
     <ul class="hide"><li><a href="#body">Skip to content</a></li></ul>
     <div id="container">
         <div id="header">
@@ -49,39 +49,51 @@ if (!$_SESSION['id_usuario']) {
             </ul>
             <div id="content"><div>
                     <div id="main">
-                        <h2>Registrar solicitud</h2>
-                        <?php $id_usuario = $_SESSION['id_usuario']; ?>
+                        <h2>Editar solicitud</h2>
+                        <?php $id_usuario = $_SESSION['id_usuario']; 
+                        $id_solicitud = $_GET['i_s']; ?>
                         <ul>
-                            <?php echo "<form name='ingreso_sistema' method='post' action='../Controlador/ControladorRegistroSolicitud.php?iu=$id_usuario&i_s=0'>"; ?>
-
-
+                            <?php echo "<form name='ingreso_sistema' method='post' action='../Controlador/ControladoresFormularios/ControladorRegistroSolicitud.php?iu=$id_usuario&i_s=$id_solicitud'>"; ?>
                             <div class="text_box">
-                                <br />
+                                <?php
+                                require_once '../Controlador/ControladorSolicitud.php';
+                                $controlador_solicitud = new ControladorSolicitud();
+                                $arreglo_datos = $controlador_solicitud->mostrar_datos($id_solicitud);
+                                
+                                ?>
                                 <h4>Nombre del cliente:</h4>
-                                <input type="text" name="cliente" class="login_input" />
-                                <br /><br />
+                                <input type="text" name="cliente" class="login_input" value = "<?php echo $arreglo_datos[0]; ?>" />
                                 <h4>Ubicación del proyecto:</h4>
-                                <input type="text" name="ubicacion" class="login_input" />
-                                <br /><br />
+                                <input type="text" name="ubicacion" class="login_input" value = "<?php echo $arreglo_datos[1]; ?>" />
                                 <h4>Tipo de proyecto:</h4>
-                                <select name='cbox_tipo' id="f3" size=1> 
-                                    <option value='ensayo de laboratorio'>Ensayo de Laboratorio</option>
-                                    <option value='trabajo de campo'>Trabajo de campo</option>
-                                </select>
-                                <br /><br />
+                                <input type="text" name="cbox_tipo" class="login_input" value = "<?php echo $arreglo_datos[2]; ?>" />
                                 <h4>Responsable:</h4>
                                 <select name='cbox_ingenieros' id="f3" size=1>
+                                <?php
+                                include_once '../Controlador/ControladorIngeniero.php';
+                                $controlador_ingeniero = new ControladorIngeniero();
+                                
+                                $lista = $controlador_ingeniero->lista_ingeniero_seleccionado();
+                                $contador = 0;
+                                while ($contador <= sizeof($lista) - 1) {
+                                    if ($arreglo_datos[3] == $lista[$contador]) {
+                                    ?>
+                                    <option selected="selected" value = <?php echo $lista[$contador];?> > <?php echo $lista[$contador+1]." ".$lista[$contador+2]; ?></option>
                                     <?php
-                                    require_once '../Controlador/ControladorIngeniero.php';
-                                    $controlador_ingeniero = new ControladorIngeniero();
-                                    $controlador_ingeniero->lista_ingenieros();
+                                    }else{?>
+                                        <option value = <?php echo $lista[$contador];?> > <?php echo $lista[$contador+1]." ".$lista[$contador+2]; ?></option>
+                                    <?php
+                                    }
+                                    $contador = $contador + 3;
+                                }
+                                
                                     ?>
                                 </select>
-                                <br /><br />
                                 <h4>Fecha:</h4>
-                                <input type="text" name="fecha" id="fecha_inicio" placeholder="Seleccione una fecha" required />
-                                <input type="submit" class="btn2" name="submit" value="Registrar" />                            
-
+                            <input type="text" name="fecha" id="fecha_inicio" value = "<?php echo date( "Y/m/d", strtotime($arreglo_datos[4]) ); ?>" required />
+                  
+                                <input type="submit" class="btn2" name="submit" value="Actualizar" />                            
+                            
                             </div>
                             </form>
 

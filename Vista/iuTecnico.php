@@ -53,7 +53,7 @@ if (!$_SESSION['id_usuario']) {
 			<div id="sub">
                             <h2>MENÚ</h2>
 				<ul class="links">
-					<li><a href="#">PROYECTOS</a></li>
+					<li><a href="iuFiltroTablaProyectos.php">PROYECTOS</a></li>
 					<li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>					
 				</ul>
 		

@@ -1,11 +1,8 @@
 <?php
-
 require_once '../Controlador/Conexion.php';
 
 class ModeloSolicitud {
-
-    function registrar_solicitud($cliente, $fecha, $ubicacion, $tipo, $id_ingeniero, $id_usuario) {
-
+    function registrar_solicitud($id_solicitud, $cliente, $fecha, $ubicacion, $tipo, $id_ingeniero, $id_usuario) {
         $con = new Conexion();
         $c = $con->getConection();
 
@@ -16,15 +13,20 @@ class ModeloSolicitud {
         $consulta_id_ingeniero = pg_query($c, "select usuario_idusuario from ingeniero where idingeniero = $id_ingeniero;");
         $id_ing_conseguido = pg_fetch_object($consulta_id_ingeniero);
         $id_usr_ingeniero = $id_ing_conseguido->usuario_idusuario;
-
-        pg_query($c, "INSERT INTO solicitud(
+        if ($id_solicitud == 0) {
+            pg_query($c, "INSERT INTO solicitud(
             director_iddirector, director_usuario_idusuario, 
             ingeniero_idingeniero, ingeniero_usuario_idusuario, cliente, 
             fecha_solicitud, ubicacion, tipo)
             VALUES ($id_director, $id_usuario, 
             $id_ingeniero, $id_usr_ingeniero,
             '$cliente', '$fecha', '$ubicacion', '$tipo');");
-
+        } else {
+            pg_query($c, "UPDATE solicitud
+            SET ingeniero_idingeniero=$id_ingeniero, ingeniero_usuario_idusuario=$id_usr_ingeniero, cliente='$cliente', 
+            fecha_solicitud='$fecha', ubicacion='$ubicacion', tipo='$tipo'
+            WHERE idsolicitud = $id_solicitud;");
+        }
         pg_close($c);
     }
 
@@ -45,7 +47,7 @@ class ModeloSolicitud {
             $ubicacion = $f->ubicacion;
             $tipo = $f->tipo;
 
-            $array_solicitudes[] = "<a href='../Vista/iuSolicitud.php?i_s=$id_solicitud'>" . $id_solicitud;
+            $array_solicitudes[] = "<a href='../Vista/iuInformacionSolicitud.php?i_s=$id_solicitud'>" . $id_solicitud;
             $array_solicitudes[] = $cliente;
             $array_solicitudes[] = $ubicacion;
             $array_solicitudes[] = $tipo;
@@ -68,23 +70,7 @@ class ModeloSolicitud {
         $ubicacion = $f->ubicacion;
         $tipo = $f->tipo;
         $fecha_u = $f->fecha_solicitud;
-
-        $dia = date("d", strtotime($fecha_u));
-        $mes = date("F", strtotime($fecha_u));
-        if ($mes == "January")            $mes = "Enero";
-        if ($mes == "February")            $mes = "Febrero";
-        if ($mes == "March")            $mes = "Marzo";
-        if ($mes == "April")            $mes = "Abril";
-        if ($mes == "May")            $mes = "Mayo";
-        if ($mes == "June")            $mes = "Junio";
-        if ($mes == "July")            $mes = "Julio";
-        if ($mes == "August")            $mes = "Agosto";
-        if ($mes == "September")            $mes = "Septiembre";
-        if ($mes == "October")            $mes = "Octubre";
-        if ($mes == "November")            $mes = "Noviembre";
-        if ($mes == "December")            $mes = "Diciembre";
-        $anio = date("Y", strtotime($fecha_u));
-        $fecha = "$dia-$mes,$anio"; //date( "d-M, Y", strtotime($fecha_u) );
+        $fecha = $fecha_u;
         $responsable = $f->ingeniero_idingeniero;
         $array_datos[] = $cliente;
         $array_datos[] = $ubicacion;
@@ -94,5 +80,4 @@ class ModeloSolicitud {
         pg_close($c);
         return $array_datos;
     }
-
 }
