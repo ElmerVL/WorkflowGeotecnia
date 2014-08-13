@@ -1,0 +1,127 @@
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LS25', 'suelo', 'Param. de resistencia CND', 'Corte directo', 'Ensayo', 564, 525);
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LS25a', 'suelo', 'Param. de resistencia CND', 'Corte directo con particulas de sobre tamaño', 'Ensayo', 1265, 1265);
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LS26', 'suelo', 'Param. de resistencia CND', 'Triaxial CD', 'Ensayo', 2100, 2100);
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LS27', 'suelo', 'Param. de resistencia CND', 'Triaxial CU', 'Ensayo', 2100, 2100);
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LS28', 'suelo', 'Parametros hidráulicos', 'Permeabilidad en celda triaxial', 'Ensayo', 420, 420);
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LS29', 'suelo', 'Parametros hidráulicos', 'Permeabilidad de carga variable', 'Ensayo', 380, 380);
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LS30', 'suelo', 'Parametros hidráulicos', 'Permeabilidad de carga constante', 'Ensayo', 380, 380);
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LS31', 'suelo', 'Suelos no saturados', 'Papel filtro', 'Ensayo', 720, 648);
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LS32', 'suelo', 'Suelos no saturados', 'Placa de presion', 'Ensayo', 720, 648);
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LS33', 'suelo', 'Suelos no saturados', 'Triaxial modificado', 'Ensayo', 4000, 400);
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LS34', 'suelo', 'Suelos especiales', 'Erosión interna', 'Ensayo', 160, 96);
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LS35', 'suelo', 'Suelos especiales', 'Ensayo quimico de fracciones de suelo', 'Ensayo', 160, 96);
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LS36', 'suelo', 'Suelos especiales', 'Doble hidrometría', 'Ensayo', 310, 288);
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LS37', 'suelo', 'Resistencia de agregados', 'Abrasión de los Ángeles agregados', 'Ensayo', 176, 167);
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LS38', 'suelo', 'Resistencia de agregados', 'Ensayo de sulfato de sodio en agregados', 'Ensayo', 1465, 1465);
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LS39', 'suelo', 'Resistencia de agregados', 'Ensayo de Relacion CBR', 'Ensayo', 570, 536);
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR01', 'roca', 'Caracterizacion', 'Identificacion de rocas', 'Ensayo', 60, 56);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR02', 'roca', 'Caracterizacion', 'Dureza Shore', 'Ensayo', 95, 80);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR03', 'roca', 'Caracterizacion', 'Contenido de humedad en rocas', 'Ensayo', 40, 32);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR04', 'roca', 'Caracterizacion', 'Densidad y porosidad(saturacion y calibrador)', 'Ensayo', 100, 96);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR05', 'roca', 'Caracterizacion', 'Densidad y porosidad(saturacion y flotacion)', 'Ensayo', 140, 136);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR06', 'roca', 'Caracterizacion', 'Densidad y porosidad(mercurio)', 'Ensayo', 215, 215);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR07', 'roca', 'Caracterizacion', 'Índice de vacíos', 'Ensayo', 140, 136);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR08', 'roca', 'Durabilidad', 'Desleimiento', 'Ensayo', 168, 160);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR09', 'roca', 'Durabilidad', 'Ensayo de sulfato de sodio en roca', 'Ensayo', 2100, 1840);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR10', 'roca', 'Durabilidad', 'Ensayo de secado y mojado', 'Ensayo', 1880, 1800);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR11', 'roca', 'Durabilidad', 'Control de erosion a partir de la gravedad', 'Ensayo', 1880, 1800);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR12', 'roca', 'Resistencia', 'Comprensión uniaxial (UCS)', 'Ensayo', 250, 240);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR13', 'roca', 'Resistencia', 'Carga puntual (PLT)', 'Ensayo', 385, 368);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR14', 'roca', 'Resistencia', 'Estimación de comprension uniaxial y módulo de deformación con esclerometro de Shore', 'Ensayo', 136, 120);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR15', 'roca', 'Resistencia', 'Estimación de comprension uniaxial y módulo de deformación con martillo de Schmidt de laboratorio', 'Ensayo', 136, 120);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR16', 'roca', 'Resistencia', 'Martillo de Schmidt de laboratorio', 'Ensayo', 136, 120);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR17', 'roca', 'Resistencia al corte', 'Corte directo sobre fisura determinada', 'Ensayo', 660, 640);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR18', 'roca', 'Tracción', 'Tracción indirecta', 'Ensayo', 395, 384);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR19', 'roca', 'Abrasión', 'Abrasión de los Ángeles de roca', 'Ensayo', 190, 176);
+
+INSERT INTO ensayo(
+            idensayo, tipo, categoria, ensayo, unidad, precio_unitario, precio_10_muestras)
+    VALUES ('LR20', 'roca', 'Extracción de nucleos', 'Obtención de especimenes de roca', 'Ensayo', 96, 88);

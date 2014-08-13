@@ -1,0 +1,309 @@
+-- Table: detalle_ensayos
+
+-- DROP TABLE detalle_ensayos;
+
+CREATE TABLE detalle_ensayos
+(
+  iddetalle_ensayos serial NOT NULL,
+  ensayo_laboratorio_solicitud_idsolicitud integer NOT NULL,
+  ensayo_laboratorio_solicitud_director_iddirector integer NOT NULL,
+  ensayo_laboratorio_solicitud_director_usuario_idusuario integer NOT NULL,
+  ensayo_laboratorio_solicitud_ingeniero_idingeniero integer NOT NULL,
+  ensayo_laboratorio_solicitud_ingeniero_usuario_idusuario integer NOT NULL,
+  ensayo_laboratorio_idensayo_laboratorio integer NOT NULL,
+  ensayo_idensayo character varying(5) NOT NULL,
+  CONSTRAINT detalle_ensayos_pkey PRIMARY KEY (iddetalle_ensayos, ensayo_laboratorio_solicitud_idsolicitud, ensayo_laboratorio_solicitud_director_iddirector, ensayo_laboratorio_solicitud_director_usuario_idusuario, ensayo_laboratorio_solicitud_ingeniero_idingeniero, ensayo_laboratorio_solicitud_ingeniero_usuario_idusuario, ensayo_laboratorio_idensayo_laboratorio, ensayo_idensayo),
+  CONSTRAINT detalle_ensayos_ensayo_idensayo_fkey FOREIGN KEY (ensayo_idensayo)
+      REFERENCES ensayo (idensayo) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT detalle_ensayos_ensayo_laboratorio_idensayo_laboratorio_fkey FOREIGN KEY (ensayo_laboratorio_idensayo_laboratorio, ensayo_laboratorio_solicitud_ingeniero_usuario_idusuario, ensayo_laboratorio_solicitud_ingeniero_idingeniero, ensayo_laboratorio_solicitud_director_usuario_idusuario, ensayo_laboratorio_solicitud_director_iddirector, ensayo_laboratorio_solicitud_idsolicitud)
+      REFERENCES ensayo_laboratorio (idensayo_laboratorio, solicitud_ingeniero_usuario_idusuario, solicitud_ingeniero_idingeniero, solicitud_director_usuario_idusuario, solicitud_director_iddirector, solicitud_idsolicitud) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE detalle_ensayos
+  OWNER TO postgres;
+
+
+-- Table: director
+
+-- DROP TABLE director;
+
+CREATE TABLE director
+(
+  iddirector serial NOT NULL,
+  usuario_idusuario integer NOT NULL,
+  nombres character varying(45),
+  apellidos character varying(45),
+  CONSTRAINT director_pkey PRIMARY KEY (iddirector, usuario_idusuario),
+  CONSTRAINT director_usuario_idusuario_fkey FOREIGN KEY (usuario_idusuario)
+      REFERENCES usuario (idusuario) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE director
+  OWNER TO postgres;
+
+-- Table: ensayo
+
+-- DROP TABLE ensayo;
+
+CREATE TABLE ensayo
+(
+  idensayo character varying(5) NOT NULL,
+  tipo character varying(5),
+  categoria character varying(25),
+  ensayo character varying(200),
+  unidad character varying(6),
+  precio_unitario real,
+  precio_10_muestras real,
+  CONSTRAINT ensayo_pkey PRIMARY KEY (idensayo)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE ensayo
+  OWNER TO postgres;
+
+-- Table: ensayo_laboratorio
+
+-- DROP TABLE ensayo_laboratorio;
+
+CREATE TABLE ensayo_laboratorio
+(
+  idensayo_laboratorio serial NOT NULL,
+  solicitud_ingeniero_usuario_idusuario integer NOT NULL,
+  solicitud_ingeniero_idingeniero integer NOT NULL,
+  solicitud_director_usuario_idusuario integer NOT NULL,
+  solicitud_director_iddirector integer NOT NULL,
+  solicitud_idsolicitud integer NOT NULL,
+  muestra_registrada boolean NOT NULL DEFAULT false,
+  CONSTRAINT ensayo_laboratorio_pkey PRIMARY KEY (idensayo_laboratorio, solicitud_ingeniero_usuario_idusuario, solicitud_ingeniero_idingeniero, solicitud_director_usuario_idusuario, solicitud_director_iddirector, solicitud_idsolicitud),
+  CONSTRAINT ensayo_laboratorio_solicitud_idsolicitud_fkey FOREIGN KEY (solicitud_idsolicitud, solicitud_director_iddirector, solicitud_director_usuario_idusuario, solicitud_ingeniero_idingeniero, solicitud_ingeniero_usuario_idusuario)
+      REFERENCES solicitud (idsolicitud, director_iddirector, director_usuario_idusuario, ingeniero_idingeniero, ingeniero_usuario_idusuario) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE ensayo_laboratorio
+  OWNER TO postgres;
+
+-- Table: ingeniero
+
+-- DROP TABLE ingeniero;
+
+CREATE TABLE ingeniero
+(
+  idingeniero serial NOT NULL,
+  usuario_idusuario integer NOT NULL,
+  nombres character varying(45),
+  apellidos character varying(45),
+  CONSTRAINT ingeniero_pkey PRIMARY KEY (idingeniero, usuario_idusuario),
+  CONSTRAINT ingeniero_usuario_idusuario_fkey FOREIGN KEY (usuario_idusuario)
+      REFERENCES usuario (idusuario) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE ingeniero
+  OWNER TO postgres;
+
+-- Table: muestra
+
+-- DROP TABLE muestra;
+
+CREATE TABLE muestra
+(
+  idmuestra serial NOT NULL,
+  ensayo_laboratorio_solicitud_idsolicitud integer NOT NULL,
+  ensayo_laboratorio_solicitud_director_iddirector integer NOT NULL,
+  ensayo_laboratorio_solicitud_director_usuario_idusuario integer NOT NULL,
+  ensayo_laboratorio_solicitud_ingeniero_idingeniero integer NOT NULL,
+  ensayo_laboratorio_solicitud_ingeniero_usuario_idusuario integer NOT NULL,
+  ensayo_laboratorio_idensayo_laboratorio integer NOT NULL,
+  ubicacion_general character varying(70),
+  ubicacion_especifica character varying(70),
+  profundidad real,
+  fecha_toma date,
+  metodo_extraccion character varying(23),
+  punto integer,
+  tipo_muestra character varying(13),
+  descripcion character varying(8),
+  codigo_muestra character varying(19),
+  CONSTRAINT muestra_pkey PRIMARY KEY (idmuestra, ensayo_laboratorio_solicitud_idsolicitud, ensayo_laboratorio_solicitud_director_iddirector, ensayo_laboratorio_solicitud_director_usuario_idusuario, ensayo_laboratorio_solicitud_ingeniero_idingeniero, ensayo_laboratorio_solicitud_ingeniero_usuario_idusuario, ensayo_laboratorio_idensayo_laboratorio),
+  CONSTRAINT muestra_ensayo_laboratorio_idensayo_laboratorio_fkey FOREIGN KEY (ensayo_laboratorio_idensayo_laboratorio, ensayo_laboratorio_solicitud_ingeniero_usuario_idusuario, ensayo_laboratorio_solicitud_ingeniero_idingeniero, ensayo_laboratorio_solicitud_director_usuario_idusuario, ensayo_laboratorio_solicitud_director_iddirector, ensayo_laboratorio_solicitud_idsolicitud)
+      REFERENCES ensayo_laboratorio (idensayo_laboratorio, solicitud_ingeniero_usuario_idusuario, solicitud_ingeniero_idingeniero, solicitud_director_usuario_idusuario, solicitud_director_iddirector, solicitud_idsolicitud) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE muestra
+  OWNER TO postgres;
+
+
+-- Table: rol
+
+-- DROP TABLE rol;
+
+CREATE TABLE rol
+(
+  codrol serial NOT NULL,
+  tiporol character varying(45),
+  CONSTRAINT rol_pkey PRIMARY KEY (codrol)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE rol
+  OWNER TO postgres;
+
+
+-- Table: solicitud
+
+-- DROP TABLE solicitud;
+
+CREATE TABLE solicitud
+(
+  idsolicitud serial NOT NULL,
+  director_iddirector integer NOT NULL,
+  director_usuario_idusuario integer NOT NULL,
+  ingeniero_idingeniero integer NOT NULL,
+  ingeniero_usuario_idusuario integer NOT NULL,
+  cliente character varying(35),
+  fecha_solicitud date,
+  ubicacion character varying(70),
+  tipo character varying(21),
+  CONSTRAINT solicitud_pkey PRIMARY KEY (idsolicitud, director_iddirector, director_usuario_idusuario, ingeniero_idingeniero, ingeniero_usuario_idusuario),
+  CONSTRAINT solicitud_director_iddirector_fkey FOREIGN KEY (director_iddirector, director_usuario_idusuario)
+      REFERENCES director (iddirector, usuario_idusuario) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT solicitud_ingeniero_idingeniero_fkey FOREIGN KEY (ingeniero_idingeniero, ingeniero_usuario_idusuario)
+      REFERENCES ingeniero (idingeniero, usuario_idusuario) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE solicitud
+  OWNER TO postgres;
+
+-- Trigger: clasificar_solicitud on solicitud
+
+-- DROP TRIGGER clasificar_solicitud ON solicitud;
+
+CREATE TRIGGER clasificar_solicitud
+  AFTER INSERT
+  ON solicitud
+  FOR EACH ROW
+  EXECUTE PROCEDURE clasificar_solicitud();
+
+
+
+-- Table: trabajo_campo
+
+-- DROP TABLE trabajo_campo;
+
+CREATE TABLE trabajo_campo
+(
+  idtrabajo_campo serial NOT NULL,
+  solicitud_ingeniero_usuario_idusuario integer NOT NULL,
+  solicitud_ingeniero_idingeniero integer NOT NULL,
+  solicitud_director_usuario_idusuario integer NOT NULL,
+  solicitud_director_iddirector integer NOT NULL,
+  solicitud_idsolicitud integer NOT NULL,
+  CONSTRAINT trabajo_campo_pkey PRIMARY KEY (idtrabajo_campo, solicitud_ingeniero_usuario_idusuario, solicitud_ingeniero_idingeniero, solicitud_director_usuario_idusuario, solicitud_director_iddirector, solicitud_idsolicitud),
+  CONSTRAINT trabajo_campo_solicitud_idsolicitud_fkey FOREIGN KEY (solicitud_idsolicitud, solicitud_director_iddirector, solicitud_director_usuario_idusuario, solicitud_ingeniero_idingeniero, solicitud_ingeniero_usuario_idusuario)
+      REFERENCES solicitud (idsolicitud, director_iddirector, director_usuario_idusuario, ingeniero_idingeniero, ingeniero_usuario_idusuario) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE trabajo_campo
+  OWNER TO postgres;
+
+
+-- Table: user_rol
+
+-- DROP TABLE user_rol;
+
+CREATE TABLE user_rol
+(
+  coduser_rol serial NOT NULL,
+  usuario_idusuario integer NOT NULL,
+  rol_codrol integer NOT NULL,
+  CONSTRAINT user_rol_pkey PRIMARY KEY (coduser_rol, usuario_idusuario, rol_codrol),
+  CONSTRAINT user_rol_rol_codrol_fkey FOREIGN KEY (rol_codrol)
+      REFERENCES rol (codrol) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT user_rol_usuario_idusuario_fkey FOREIGN KEY (usuario_idusuario)
+      REFERENCES usuario (idusuario) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE user_rol
+  OWNER TO postgres;
+
+
+-- Table: usuario
+
+-- DROP TABLE usuario;
+
+CREATE TABLE usuario
+(
+  idusuario serial NOT NULL,
+  login character varying(45),
+  passwd character varying(45),
+  habilitada boolean NOT NULL,
+  CONSTRAINT usuario_pkey PRIMARY KEY (idusuario),
+  CONSTRAINT usuario_login_key UNIQUE (login)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE usuario
+  OWNER TO postgres;
+
+
+-- Function: clasificar_solicitud()
+
+-- DROP FUNCTION clasificar_solicitud();
+
+CREATE OR REPLACE FUNCTION clasificar_solicitud()
+  RETURNS trigger AS
+$BODY$
+    BEGIN
+    IF NEW.tipo = 'ensayo de laboratorio' THEN
+           INSERT INTO ensayo_laboratorio(
+            solicitud_ingeniero_usuario_idusuario, 
+            solicitud_ingeniero_idingeniero, solicitud_director_usuario_idusuario, 
+            solicitud_director_iddirector, solicitud_idsolicitud)
+	    VALUES (NEW.ingeniero_usuario_idusuario, 
+		    NEW.ingeniero_idingeniero, NEW.director_usuario_idusuario, 
+		    NEW.director_iddirector, NEW.idsolicitud);
+    END IF;
+    IF NEW.tipo = 'trabajo de campo' THEN
+           INSERT INTO trabajo_campo(
+            solicitud_ingeniero_usuario_idusuario, solicitud_ingeniero_idingeniero, 
+            solicitud_director_usuario_idusuario, solicitud_director_iddirector, 
+            solicitud_idsolicitud)
+	    VALUES (NEW.ingeniero_usuario_idusuario, 
+		    NEW.ingeniero_idingeniero, NEW.director_usuario_idusuario, 
+		    NEW.director_iddirector, NEW.idsolicitud);
+    END IF;
+    RETURN NEW;
+    END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION clasificar_solicitud()
+  OWNER TO postgres;
