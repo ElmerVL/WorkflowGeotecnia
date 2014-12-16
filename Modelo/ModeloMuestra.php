@@ -43,6 +43,4 @@ class ModeloMuestra {
         return $array_datos;
         pg_close($c);
     }
-
-
 }

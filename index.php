@@ -29,7 +29,7 @@
                             <div class="login_form_row">
                             <label class="login_label">Nombre de usuario:</label>
                             <br />
-                            <input type="text" name="name" class="login_input" />
+                            <input type="text" name="name" class="login_input" required = "required" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" />
                             </div>
                             
                             <div class="login_form_row">

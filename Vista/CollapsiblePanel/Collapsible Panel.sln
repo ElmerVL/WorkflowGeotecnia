@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Collapsible Panel", ".", "{1AFED634-BA9C-4469-B8C1-AC1F2719BB6B}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFramework = "2.0"
+		Debug.AspNetCompiler.VirtualPath = "/Collapsible Panel"
+		Debug.AspNetCompiler.PhysicalPath = "F:\Articles\Dot Net 3.5\Jquery\Collapsible Panel\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Collapsible Panel\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/Collapsible Panel"
+		Release.AspNetCompiler.PhysicalPath = "F:\Articles\Dot Net 3.5\Jquery\Collapsible Panel\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\Collapsible Panel\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "49510"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1AFED634-BA9C-4469-B8C1-AC1F2719BB6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AFED634-BA9C-4469-B8C1-AC1F2719BB6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -6,7 +6,7 @@ $rol = $_SESSION['rol'];
 
 <!DOCTYPE html >
 <head>
-    <title>PROYECTO</title>
+    <title>WORKFLOW</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="imagetoolbar" content="no" />
     <meta name="keywords" content="" />
@@ -110,9 +110,8 @@ $rol = $_SESSION['rol'];
                                 echo "<li><a href='iuRegistroSolicitud.php'>NUEVA SOLICITUD</a></li>";
                             ?>
 
-                            <li><a href="iuFiltroTablaProyectos.php">PROYECTOS</a></li>
+                            <li><a href="iuTablaProyectos.php?f=0">PROYECTOS</a></li>
                             <li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>
-                            <li><a href="iuFiltroTablaProyectos.php">VOLVER</a></li>
                         </ul>
 
                     </div>

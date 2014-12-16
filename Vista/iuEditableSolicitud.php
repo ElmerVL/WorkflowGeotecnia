@@ -12,7 +12,7 @@ if (!$_SESSION['id_usuario']) {
 
 <!DOCTYPE html >
 <head>
-    <title>DIRECTOR</title>
+    <title>WORKFLOW</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="imagetoolbar" content="no" />
     <meta name="keywords" content="" />
@@ -63,12 +63,15 @@ if (!$_SESSION['id_usuario']) {
                                 ?>
                                 <h4>Nombre del cliente:</h4>
                                 <input type="text" name="cliente" class="login_input" value = "<?php echo $arreglo_datos[0]; ?>" />
+                                <br /><br />
                                 <h4>Ubicación del proyecto:</h4>
                                 <input type="text" name="ubicacion" class="login_input" value = "<?php echo $arreglo_datos[1]; ?>" />
+                                <br /><br />
                                 <h4>Tipo de proyecto:</h4>
                                 <input type="text" name="cbox_tipo" class="login_input" value = "<?php echo $arreglo_datos[2]; ?>" />
+                                <br /><br />
                                 <h4>Responsable:</h4>
-                                <select name='cbox_ingenieros' id="f3" size=1>
+                                <select name='cbox_ingenieros' id="f3" size=1
                                 <?php
                                 include_once '../Controlador/ControladorIngeniero.php';
                                 $controlador_ingeniero = new ControladorIngeniero();
@@ -89,6 +92,7 @@ if (!$_SESSION['id_usuario']) {
                                 
                                     ?>
                                 </select>
+                                <br /><br />
                                 <h4>Fecha:</h4>
                             <input type="text" name="fecha" id="fecha_inicio" value = "<?php echo date( "Y/m/d", strtotime($arreglo_datos[4]) ); ?>" required />
                   
@@ -102,9 +106,13 @@ if (!$_SESSION['id_usuario']) {
                     <div id="sub">
                         <h2>MENÚ</h2>
                         <ul class="links">
-                            <li><a href="iuRegistroSolicitud.php">NUEVA SOLICITUD</a></li>
-                            <li><a href="iuFiltroTablaProyectos.php">PROYECTOS</a></li>
-                            <li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>					
+                            <?php
+                            if ($rol == 2)
+                                echo "<li><a href='iuRegistroSolicitud.php'>NUEVA SOLICITUD</a></li>";
+                            ?>
+
+                            <li><a href="iuTablaProyectos.php?f=0">PROYECTOS</a></li>
+                            <li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>
                         </ul>
 
                     </div>

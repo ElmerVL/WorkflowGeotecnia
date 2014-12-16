@@ -1,6 +1,6 @@
 <?php
 
-require('../Controlador/Conexion.php');
+require_once'../Controlador/Conexion.php';
 
 function iniciarSesion($nombre_usuario, $contrasena_usuario) {
     $conec = new Conexion();

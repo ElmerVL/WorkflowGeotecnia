@@ -12,7 +12,7 @@ if (!$_SESSION['id_usuario']) {
 
 <!DOCTYPE html >
 <head>
-	<title>AUXILIAR</title>
+	<title>WORKFLOW</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta http-equiv="imagetoolbar" content="no" />
 	<meta name="keywords" content="" />
@@ -53,7 +53,7 @@ if (!$_SESSION['id_usuario']) {
 			<div id="sub">
                             <h2>MENÚ</h2>
 				<ul class="links">
-					<li><a href="iuFiltroTablaProyectos.php">PROYECTOS</a></li>
+                                    <li><a href="../Vista/iuTablaProyectos.php?f=0">PROYECTOS</a></li>
 					<li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>					
 				</ul>
 		

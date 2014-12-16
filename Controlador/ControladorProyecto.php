@@ -1,6 +1,18 @@
 <?php
 require_once '../Modelo/ModeloProyecto.php';
 class ControladorProyecto {
+    function conseguir_cod_solicitud_tc($id_proyecto) {
+        $modelo_proyecto = new ModeloProyecto();
+        $cod_solicitud = $modelo_proyecto->mostrar_cod_solicitud_tc($id_proyecto);
+        return $cod_solicitud;
+    }
+    
+    function conseguir_cod_solicitud_el($id_proyecto) {
+        $modelo_proyecto = new ModeloProyecto();
+        $cod_solicitud = $modelo_proyecto->mostrar_cod_solicitud_el($id_proyecto);
+        return $cod_solicitud;
+    }
+    
     function mostrar_tabla($filtro){
         $modelo_solicitud = new ModeloProyecto();
         if($filtro==0){

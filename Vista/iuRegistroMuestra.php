@@ -12,7 +12,7 @@ if (!$_SESSION['id_usuario']) {
 
 <!DOCTYPE html >
 <head>
-    <title>INGENIERO</title>
+    <title>WORKFLOW</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="imagetoolbar" content="no" />
     <meta name="keywords" content="" />
@@ -70,7 +70,7 @@ if (!$_SESSION['id_usuario']) {
                                 <input type="text" name="ubicacion_especifica" class="login_input" />
                                 <br /><br />
                                 <h4>Profundidad:</h4>
-                                <input type="text" name="profundidad" class="login_input" />
+                                <input type="text" name="profundidad" class="login_input" /> Decimetros
                                 <br /><br />
                                 <h4>Fecha de toma de la muestra:</h4>
                                 <input type="text" name="fecha_toma" id="fecha_inicio" placeholder="Seleccione una fecha" required />
@@ -108,8 +108,13 @@ if (!$_SESSION['id_usuario']) {
                     <div id="sub">
                         <h2>MENÚ</h2>
                         <ul class="links">
-                            <li><a href="iuFiltroTablaProyectos.php">PROYECTOS</a></li>
-                            <li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>					
+                            <?php
+                            if ($rol == 2)
+                                echo "<li><a href='iuRegistroSolicitud.php'>NUEVA SOLICITUD</a></li>";
+                            ?>
+
+                            <li><a href="iuTablaProyectos.php?f=0">PROYECTOS</a></li>
+                            <li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>
                         </ul>
 
                     </div>

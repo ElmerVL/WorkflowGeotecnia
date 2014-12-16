@@ -1,10 +1,10 @@
 <?php
 require_once '../Modelo/ModeloIngeniero.php';
 class ControladorIngeniero {
-    function lista_ingenieros() {
-        echo "entra aqui";
+    function lista_ingenieros($cargo) {
         $modelo_ingeniero = new ModeloIngeniero();
-        $modelo_ingeniero->mostrar_lista_ingenieros();
+        $arreglo_ingenieros = $modelo_ingeniero->mostrar_lista_ingenieros($cargo);
+        return $arreglo_ingenieros;
     }
     function lista_ingeniero_seleccionado() {
         $modelo_ingeniero = new ModeloIngeniero();

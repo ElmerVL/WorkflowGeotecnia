@@ -4,7 +4,7 @@ session_start();
 
 <!DOCTYPE html >
 <head>
-    <title>DIRECTOR</title>
+    <title>WORKFLOW</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="imagetoolbar" content="no" />
     <meta name="keywords" content="" />
@@ -32,7 +32,24 @@ session_start();
             </ul>
             <div id="content"><div>
                     <div id="main">
+                        
                         <h2>Lista de proyectos</h2>
+                        <?php echo "<form name='ingreso_sistema' method='post' action='../Controlador/ControladorFiltroProyectos.php'>"?>
+                                <br />
+                        <h6>Seleccione proyectos:</h6>
+                                    <br /><br />
+                                    <ul class="fieldlist">
+                                        <li><input type="radio" name="filtro" id="f41" value="0" checked /> 
+                                            <label for="f41">Todos</label></li>
+                                        <li><input type="radio" name="filtro" id="f43" value="1" /> 
+                                            <label for="f43">Ensayos de laboratorio</label></li>
+                                        <li><input type="radio" name="filtro" id="f42" value="2" /> 
+                                            <label for="f42">Estudios geotecnicos</label></li>
+                                    </ul>
+                                    <p><label>&nbsp;</label> <input type="submit" value="Mostrar" class="btn" /></p>
+                                
+                            </form>
+                        
                         <?php
                         $id_usuario = $_SESSION['id_usuario'];
                         $rol = $_SESSION['rol'];
@@ -42,11 +59,10 @@ session_start();
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th scope="col">Código</th>
-                                            <th scope="col">Responsable</th>
-                                            <th scope="col">Cliente</th>
-                                            <th scope="col">Tipo de proyecto</th>
-                                            <th scope="col">Muestra regist.</th>
+                                            <th style="width: 70px;" scope="col">Código</th>
+                                            <th style="width: 120px;" scope="col">Responsable</th>
+                                            <th style="width: 130px;" scope="col">Nombre del proyecto</th>
+                                            <th style="width: 170px;" scope="col">Tipo de proyecto</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -66,7 +82,7 @@ session_start();
                                                 <td><?php echo $lista[$contador + 1] ?></td>
                                                 <td><?php echo $lista[$contador + 2] ?></td>
                                                 <td><?php echo $lista[$contador + 3] ?></td>
-                                                <td><?php echo $lista[$contador + 4] ?></td>
+                                                
                                             </tr>
 
                                             <?php
@@ -81,8 +97,13 @@ session_start();
                     <div id="sub">
                         <h2>MENÚ</h2>
                         <ul class="links">
-                            <li><a href="iuFiltroTablaProyectos.php">PROYECTOS</a></li>
-                            <li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>					
+                            <?php
+                            if ($rol == 2)
+                                echo "<li><a href='iuRegistroSolicitud.php'>NUEVA SOLICITUD</a></li>";
+                            ?>
+
+                            <li><a href="iuTablaProyectos.php?f=0">PROYECTOS</a></li>
+                            <li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>
                         </ul>
 
                     </div>

@@ -12,7 +12,7 @@ if (!$_SESSION['id_usuario']) {
 
 <!DOCTYPE html >
 <head>
-	<title>CONTADOR</title>
+	<title>WORKFLOW</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta http-equiv="imagetoolbar" content="no" />
 	<meta name="keywords" content="" />
@@ -37,7 +37,7 @@ if (!$_SESSION['id_usuario']) {
 		</ul>
 		<div id="content"><div>
 			<div id="main">
-				<h2>Consectetuer adipiscing</h2>
+				<h2>Contador</h2>
 				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Cras suscipit. Vestibulum quis massa. 
 				Suspendisse sed massa id diam aliquet.</p>
 				
@@ -53,9 +53,9 @@ if (!$_SESSION['id_usuario']) {
 			<div id="sub">
                             <h2>MENÚ</h2>
 				<ul class="links">
-					<li><a href="iuFiltroTablaProyectos.php">PROYECTOS</a></li>
-					<li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>					
-				</ul>
+                                    <li><a href="iuTablaProyectos.php?f=0">PROYECTOS</a></li>
+                                    <li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>
+                                </ul>
 		
 			</div>
 		</div></div>	

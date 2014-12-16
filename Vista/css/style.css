@@ -23,6 +23,7 @@ h2, h3, h4, h5, h6 {
 h2 { font-size: 1.8em; margin: 25px 0 15px; padding-bottom: 15px; border-bottom: 1px solid #ccc; }
 h3 { color: darkgoldenrod; font-size: 1.6em; margin: -10px 60px -8px; }
 h4 { font-size: 1.2em; margin: -10px 10px 5px; }
+h7 { font-size: 1.1em; margin: -10px 10px 5px; color: #cc0000; }
 h5 { font-size: 1.2em; margin: 20px 0 5px; }	
 h6 { color: black; font-size: 1.2em; margin: -5px 25px -10px;  }
 
@@ -76,9 +77,9 @@ dl dt, li { color: #099; }
 li span { color: #333; }
 
 /* tables */
-table { max-height: 400px; display: inline-block; overflow: auto; margin: 10px 0; border: 1px solid #ddd; border-collapse: collapse; }
+table {max-width: 460px; display: inline-block; overflow: auto; margin: -5px 5px 0px -15px; border: 1px solid #ddd; border-collapse: collapse; }
 table th, 
-table td { padding: 5px 10px; text-align: left; }
+table td { padding: 3px 7px; text-align: left; }
 table thead th { 
 	font-family: "Trebuchet MS", Tahoma, Verdana, Arial, Helvetica, sans-serif; 
 	background-color: #099; 
@@ -91,7 +92,6 @@ table thead th {
 table tbody th { background-color: #ddd; }
 table tbody th, 
 table tbody td { border-top: 1px solid #ddd; text-align: center;}
-
 
 
 /* forms */
@@ -347,4 +347,3 @@ position: relative;
 top: -150px;
 left: 440px;
 }
-

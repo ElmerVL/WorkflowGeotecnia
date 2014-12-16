@@ -13,14 +13,19 @@ class ModeloSolicitud {
         $consulta_id_ingeniero = pg_query($c, "select usuario_idusuario from ingeniero where idingeniero = $id_ingeniero;");
         $id_ing_conseguido = pg_fetch_object($consulta_id_ingeniero);
         $id_usr_ingeniero = $id_ing_conseguido->usuario_idusuario;
+        
+        $modelo_solicitud = new ModeloSolicitud();
+        $cod_solicitud = $modelo_solicitud->generar_codigo_solicitud();
+        echo $cod_solicitud;
+        
         if ($id_solicitud == 0) {
             pg_query($c, "INSERT INTO solicitud(
             director_iddirector, director_usuario_idusuario, 
             ingeniero_idingeniero, ingeniero_usuario_idusuario, cliente, 
-            fecha_solicitud, ubicacion, tipo)
+            fecha_solicitud, ubicacion, tipo, cod_solicitud)
             VALUES ($id_director, $id_usuario, 
             $id_ingeniero, $id_usr_ingeniero,
-            '$cliente', '$fecha', '$ubicacion', '$tipo');");
+            '$cliente', '$fecha', '$ubicacion', '$tipo', '$cod_solicitud');");
         } else {
             pg_query($c, "UPDATE solicitud
             SET ingeniero_idingeniero=$id_ingeniero, ingeniero_usuario_idusuario=$id_usr_ingeniero, cliente='$cliente', 
@@ -34,7 +39,7 @@ class ModeloSolicitud {
         $con = new Conexion();
         $c = $con->getConection();
 
-        $consulta = pg_query($c, "select idsolicitud, cliente, ubicacion, tipo, fecha_solicitud, nombres, apellidos
+        $consulta = pg_query($c, "select idsolicitud, cliente, ubicacion, tipo, fecha_solicitud, nombres, apellidos, cod_solicitud
                               from solicitud, ingeniero
                               where ingeniero_idingeniero = idingeniero
                               order by idsolicitud;");
@@ -43,11 +48,12 @@ class ModeloSolicitud {
         while ($f = pg_fetch_object($consulta)) {
 
             $id_solicitud = $f->idsolicitud;
+            $cod_solicitud = $f->cod_solicitud;
             $cliente = $f->cliente;
             $ubicacion = $f->ubicacion;
             $tipo = $f->tipo;
 
-            $array_solicitudes[] = "<a href='../Vista/iuInformacionSolicitud.php?i_s=$id_solicitud'>" . $id_solicitud;
+            $array_solicitudes[] = "<a href='../Vista/iuInformacionSolicitud.php?i_s=$id_solicitud'>" . $cod_solicitud;
             $array_solicitudes[] = $cliente;
             $array_solicitudes[] = $ubicacion;
             $array_solicitudes[] = $tipo;
@@ -79,5 +85,18 @@ class ModeloSolicitud {
         $array_datos[] = $fecha;
         pg_close($c);
         return $array_datos;
+    }
+    
+    function generar_codigo_solicitud() {
+        $con = new Conexion();
+        $c = $con->getConection();
+        $cons_filas_este_anio= pg_query($c, "select count(*) 
+                                            from solicitud
+                                            where date_part('year', fecha_solicitud) = date_part('year', now());");
+        $r = pg_fetch_object($cons_filas_este_anio);
+        $cant_filas_este_anio = $r->count;
+        $cant_filas_este_anio = str_pad($cant_filas_este_anio, 3, "0", STR_PAD_LEFT);
+        $cod = "PS-".$cant_filas_este_anio."_".date("y");
+        return $cod;
     }
 }
