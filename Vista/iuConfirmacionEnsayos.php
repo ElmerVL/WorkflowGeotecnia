@@ -1,12 +1,20 @@
 <?php
 session_start();
-$id_usuario = $_SESSION['id_usuario'];
 $rol = $_SESSION['rol'];
+$i_u = $_SESSION['id_usuario'];
+if (!$i_u) {
+    header("Location: ../index.php");
+} else {
+    if ($rol != 4) {
+        session_destroy();
+        header("Location: ../index.php");
+    }
+}
 ?>
-
 <!DOCTYPE html >
 <head>
     <title>WORKFLOW</title>
+    <link rel="shortcut icon" href="../Vista/img/icono">
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="imagetoolbar" content="no" />
     <meta name="keywords" content="" />
@@ -27,8 +35,40 @@ $rol = $_SESSION['rol'];
 
         <div id="body">
             <ul id="nav">
+                <?php
+                if($rol == 1){
+                ?>
                 <li class="on"><a href="iuAdministrador.php">Principal</a></li>
-
+                <?php
+                }
+                if($rol == 2){
+                ?>
+                <li class="on"><a href="iuDirector.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 3){
+                ?>
+                <li class="on"><a href="iuContador.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 4){
+                ?>
+                <li class="on"><a href="iuIngeniero.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 5){
+                ?>
+                <li class="on"><a href="iuAuxiliar.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 6){
+                ?>
+                <li class="on"><a href="iuTecnico.php">Principal</a></li>
+                <?php
+                }
+                ?>
+                <li class="on"><a href="iuCalendario.php">Calendario</a></li>
+                <li class="on"><a href="iuWorkFlow.php">Workflow</a></li>
             </ul>
             <div id="content"><div>
                     <div id="body">
@@ -59,14 +99,14 @@ $rol = $_SESSION['rol'];
                                     while ($contador <= sizeof($array_ensayos) - 1) {
                                         ?>
                                         <tr>
-                                            <td><?php echo $array_ensayos[$contador] ?></td>
+                                            <td><?php echo $array_ensayos[$contador]; ?></td>
                                             <td><?php echo $array_ensayos[$contador + 1]; ?></td>
                                             <td><?php echo $array_ensayos[$contador + 2]; ?></td>
                                             <td><?php echo $array_ensayos[$contador + 3]; ?></td>
                                             <td><?php echo $array_ensayos[$contador + 4]; ?></td>
                                             <td><?php echo $array_ensayos[$contador + 5]; ?></td>
                                             <td><?php echo $array_ensayos[$contador + 6]; ?></td>
-                                            <td><?php echo $array_ensayos[$contador + 7]; ?></td>
+                                            <td><a href="../Controlador/ControladorActualizarTiempoEnsayo.php?d=0&i_p=<?php echo $id_proyecto; ?>&c_e=<?php echo $array_ensayos[$contador]; ?>"> B </a><?php echo $array_ensayos[$contador + 7]; ?><a href="../Controlador/ControladorActualizarTiempoEnsayo.php?d=1&i_p=<?php echo $id_proyecto; ?>&c_e=<?php echo $array_ensayos[$contador]; ?>"> S </a></td>
                                             <?php echo "<td><a href='../Controlador/ControladorEliminarDetalleEnsayos.php?i_p=$id_proyecto&c_e=$array_ensayos[$contador]'>ELIMINAR</a></td>"; ?>
                                         </tr>
                                         <?php
@@ -103,10 +143,6 @@ $rol = $_SESSION['rol'];
                                 echo '<input type="button" class="btn2" name="submit" href="#" value="Auxiliar"/>';
                             elseif ($rol == 6)
                                 echo '<input type="button" class="btn2" name="submit" href="#" value="Tecnico"/>';
-                                        
-                            
-                            
-                            
                             ?>
                             <br />
                         </form>

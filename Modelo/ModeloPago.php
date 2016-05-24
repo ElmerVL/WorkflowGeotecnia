@@ -14,15 +14,15 @@ class ModeloPago {
             $r_sol = pg_fetch_object($cons_id_solicitud);
             $id_solicitud=$r_sol->solicitud_idsolicitud;
         }
-        $cons_anticipo_pagado = pg_query($c, "select count(*) from estado_pago where solicitud_idsolicitud = $id_solicitud;");
+        $cons_anticipo_pagado = pg_query($c, "select anticipo_pagado from estado_pago where solicitud_idsolicitud = $id_solicitud;");
         $r = pg_fetch_object($cons_anticipo_pagado);
-        $cant = $r->count;
-        if($cant > 0){
-            $resp = true;
+        $resp = $r->anticipo_pagado;
+        if($resp == "t"){
+            $res = true;
         } else {
-            $resp = false;
+            $res = false;
         }
-        return $resp;
+        return $res;
         pg_close($c);
     }
     
@@ -81,23 +81,19 @@ class ModeloPago {
             $usr_ingeniero = $datos_conseguidos->solicitud_ingeniero_usuario_idusuario;
         }
         $modelo_pago = new ModeloPago(); 
-        $id_estado = $modelo_pago->generar_id_estado();
-        pg_query($c, "INSERT INTO estado_pago(
-            idestado_pago, solicitud_ingeniero_usuario_idusuario, solicitud_ingeniero_idingeniero, 
-            solicitud_director_usuario_idusuario, solicitud_director_iddirector, 
-            solicitud_idsolicitud, porcentaje_anticipo, anticipo_pagado, 
-            porcentaje_saldo, saldo_pagado)
-                VALUES ($id_estado, $usr_ingeniero, $id_ingeniero, 
-                        $usr_director, $id_director, 
-                        $id_solicitud, $p_anticipo, 'TRUE', 
-                        $p_saldo, 'FALSE');");
+        $id_estado = $modelo_pago->mostrar_id_estado($id_solicitud);
+
+        pg_query($c, "UPDATE estado_pago
+                        SET porcentaje_anticipo = $p_anticipo, anticipo_pagado=true, 
+                        porcentaje_saldo = $p_saldo
+                        WHERE solicitud_idsolicitud = $id_solicitud;");
         
         pg_close($c);
         $modelo_pago->insertar_orden_pago($id_estado, $nro_orden_pago, $nro_factura_pago, $porcentaje_pago, $monto_pago, $usr_ingeniero, $id_ingeniero, $usr_director, $id_director, $id_solicitud);
     }
     
     
-    function actualizar_estado_pago($tipo_proyecto, $id_proyecto, $nro_orden_pago, $nro_factura_pago, $porcentaje_pago, $monto_pago) {
+    function actualizar_estado_pago($tipo_proyecto, $id_proyecto, $nro_orden_pago, $nro_factura_pago, $porcentaje_pago = 0, $monto_pago = 0) {
         $con = new Conexion();
         $c = $con->getConection();
         
@@ -134,7 +130,6 @@ class ModeloPago {
         $consulta_id_estado = pg_query($c, "select idestado_pago from estado_pago where solicitud_idsolicitud = $id_solicitud;");
         $dato = pg_fetch_object($consulta_id_estado);
         $id_estado = $dato->idestado_pago;
-        echo "id estado aqui ".$id_estado;
         pg_query($c, "UPDATE estado_pago
                         SET saldo_pagado=true
                         WHERE solicitud_idsolicitud = $id_solicitud;");
@@ -171,6 +166,19 @@ class ModeloPago {
         $r = pg_fetch_object($cons_cantidad);
         $cant = $r->count;
         return $cant+1;
+        pg_close($c);
+    }
+    
+    function mostrar_id_estado($id_solicitud) {
+        $con = new Conexion();
+        $c = $con->getConection();
+        
+        $cons_cantidad = pg_query($c, "select idestado_pago 
+                                    from estado_pago
+                                    where solicitud_idsolicitud = $id_solicitud;");
+        $r = pg_fetch_object($cons_cantidad);
+        $idestado_pago = $r->idestado_pago;
+        return $idestado_pago;
         pg_close($c);
     }
 }

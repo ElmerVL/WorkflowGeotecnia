@@ -1,8 +1,16 @@
+<?php
+session_start();
+$rol = $_SESSION['rol'];
+$i_u = $_SESSION['id_usuario'];
+if (!$i_u) {
+    header("Location: ../index.php");
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
-
         <title>WORKFLOW</title>
+        <link rel="shortcut icon" href="../Vista/img/icono">
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta http-equiv="imagetoolbar" content="no" />
         <meta name="keywords" content="" />
@@ -20,12 +28,14 @@
         <script src='calendario/lib/jquery-ui.custom.min.js'></script>
         <script src='calendario/fullcalendar.min.js'></script>
         
+        
+        
         <?php
         require_once '../Controlador/ControladoCalendario.php';
         $controlador_calendario = new ControladoCalendario();
         $arreglo_fechas = $controlador_calendario->mostrar_fechas();
         ?>
-        
+
         <script>
             $(document).ready(function() {
 
@@ -35,7 +45,7 @@
                         center: 'title',
                         right: 'month,agendaWeek,agendaDay'
                     },
-                    defaultDate: '<?php echo date('Y-m-d');?>',
+                    defaultDate: '<?php echo date('Y-m-d'); ?>',
                     editable: false,
                     events: [
                         {
@@ -44,20 +54,20 @@
                             start: '2014-06-07',
                             end: '2014-06-10'
                         },
-                        <?php
-                        $contador = 0;
-                        while ($contador <= sizeof($arreglo_fechas) - 1) {
-                            ?>
-                        {
-                            title: 'Proyecto: <?php echo $arreglo_fechas[$contador+2]; ?> - <?php echo $arreglo_fechas[$contador+3]; ?>',
-                            url: 'iuInformacionProyecto.php?i_p=<?php echo $arreglo_fechas[$contador+4]; ?>&t=1',
-                            start: '<?php echo $arreglo_fechas[$contador]; ?>',
-                            end: '<?php echo $arreglo_fechas[$contador+1]; ?>'
-                        },
-                        <?php
-                            $contador = $contador + 5;
-                        }
-                        ?>
+<?php
+$contador = 0;
+while ($contador <= sizeof($arreglo_fechas) - 1) {
+    ?>
+                            {
+                                title: 'Proyecto: <?php echo $arreglo_fechas[$contador + 2]; ?> - <?php echo $arreglo_fechas[$contador + 3]; ?>',
+                                        url: 'iuInformacionProyecto.php?i_p=<?php echo $arreglo_fechas[$contador + 4]; ?>&t=1',
+                                start: '<?php echo $arreglo_fechas[$contador]; ?>',
+                                        end: '<?php echo $arreglo_fechas[$contador + 1]; ?>'
+                            },
+    <?php
+    $contador = $contador + 5;
+}
+?>
                         {
                             title: 'Click for Google',
                                     url: 'http://google.com/',
@@ -94,9 +104,41 @@
 
             <div id="body">
                 <ul id="nav">
-                    <li class="on"><a href="iuAdministrador.php">WorkFlow</a></li>
-
-                </ul>
+                <?php
+                if($rol == 1){
+                ?>
+                <li class="on"><a href="iuAdministrador.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 2){
+                ?>
+                <li class="on"><a href="iuDirector.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 3){
+                ?>
+                <li class="on"><a href="iuContador.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 4){
+                ?>
+                <li class="on"><a href="iuIngeniero.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 5){
+                ?>
+                <li class="on"><a href="iuAuxiliar.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 6){
+                ?>
+                <li class="on"><a href="iuTecnico.php">Principal</a></li>
+                <?php
+                }
+                ?>
+                <li class="on"><a href="iuCalendario.php">Calendario</a></li>
+                <li class="on"><a href="iuWorkFlow.php">Workflow</a></li>
+            </ul>
                 <div id="content">
                     <div>
                         <div id="body">

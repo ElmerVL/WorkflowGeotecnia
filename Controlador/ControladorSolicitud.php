@@ -12,4 +12,10 @@ class ControladorSolicitud {
         $arreglo_datos = $modelo_solicitud->mostrar_datos_solicitud($id_solicitud);
         return $arreglo_datos;
     }
+    
+    function mostrar_cod_proyecto($id_solicitud){
+        $modelo_solicitud = new ModeloSolicitud();
+        $cod_proyecto = $modelo_solicitud->mostrar_cod_proyecto($id_solicitud);
+        return $cod_proyecto;
+    }
 }

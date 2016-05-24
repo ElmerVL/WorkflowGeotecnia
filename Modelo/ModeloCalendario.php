@@ -29,7 +29,7 @@ class ModeloCalendario {
             $id_ingeniero = $datos_conseguidos->solicitud_ingeniero_idingeniero;
             $usr_ingeniero = $datos_conseguidos->solicitud_ingeniero_usuario_idusuario;
         }
-        $insertar_fecha = pg_query($c, "INSERT INTO calendario(
+        return pg_query($c, "INSERT INTO calendario(
                                         solicitud_ingeniero_usuario_idusuario, solicitud_ingeniero_idingeniero, 
                                         solicitud_director_usuario_idusuario, solicitud_director_iddirector, 
                                         solicitud_idsolicitud, fecha_inicio, fecha_fin)

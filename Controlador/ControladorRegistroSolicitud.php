@@ -1,7 +1,5 @@
 <?php
-
 require_once '../Modelo/ModeloSolicitud.php';
-
 $cliente = $_POST['cliente'];
 echo "cliente: ".$cliente . "<br />";
 $fecha = $_POST['fecha'];
@@ -15,6 +13,7 @@ echo "id_ing".$id_ingeniero . "<br />";
 $iu = $_GET['iu'];
 echo "iu".$iu . "<br />";
 $id_solicitud = $_GET['i_s'];
+echo $id_solicitud;
 if ($id_ingeniero == 0) {
     header("Location: ../../Vista/iuRegistroSolicitud.php");
 } else {

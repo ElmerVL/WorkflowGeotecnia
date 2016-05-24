@@ -32,7 +32,7 @@ class ModeloCuantias {
         }elseif($tipo_institucion == 'privada' && $tipo_proyecto == 2){
             $modelo_cuantias->imprimir_nota_aceptacion_tc($id_ensayo, 50, $tipo_proyecto);
         }elseif($precio <= 5000 && $tipo_institucion == 'estatal' && $tipo_proyecto == 1){
-            $modelo_cuantias->imprimir_nota_aceptacion($id_ensayo);
+            $modelo_cuantias->imprimir_nota_aceptacion($id_ensayo, 20, $tipo_proyecto);
         }elseif ($precio > 5000 && $tipo_institucion == 'estatal' && $tipo_proyecto == 1) {
             $modelo_cuantias->imprimir_nota_aceptacion($id_ensayo, 20, $tipo_proyecto);
         }elseif ($tipo_institucion == 'estatal' && $tipo_proyecto == 2) {
@@ -66,7 +66,7 @@ class ModeloCuantias {
         $precio_total = $modelo_ensayo->mostrar_suma_total_ensayos($id_ensayo);
         
         
-        require_once 'fpdf/fpdf.php';
+        require_once '../fpdf/fpdf.php';
         $pdf = new FPDF();
         $pdf->AddPage();
         $pdf->SetMargins(15, 15);
@@ -206,6 +206,7 @@ class ModeloCuantias {
             $telefono_celular = $array_datos_cliente[5];
             $correo = $array_datos_cliente[6];
             $direccion_fiscal = $array_datos_cliente[7];
+            $ci_contacto = $array_datos_cliente[8];
 
         require_once '../Controlador/ControladorProyecto.php';
         $controlador_proyecto = new ControladorProyecto();
@@ -309,7 +310,7 @@ class ModeloCuantias {
         $pdf->Ln(6);
         $pdf->Cell(160, 2, utf8_decode("a) Nombre de contacto: $nombre_contacto") , 0, 1, 'L');
         $pdf->Ln(3);
-        $pdf->Cell(160, 2, utf8_decode("b) CI del contacto: $nit_ci") , 0, 1, 'L');
+        $pdf->Cell(160, 2, utf8_decode("b) CI del contacto: $ci_contacto") , 0, 1, 'L');
         $pdf->Ln(3);
         $pdf->Cell(160, 2, utf8_decode("c) Nombre de la institucion: $nombre_factura") , 0, 1, 'L');
         $pdf->Ln(3);
@@ -335,6 +336,9 @@ class ModeloCuantias {
         $pdf->Ln(3);
         $pdf->Cell(160, 2, utf8_decode($nombre_contacto) , 0, 1, 'C');
         $pdf->Ln(3);
+        $pdf->Cell(160, 2, utf8_decode($ci_contacto) , 0, 1, 'C');
+        $pdf->Ln(3);
+        $pdf->Cell(160, 2, utf8_decode($nombre_factura) , 0, 1, 'C');
         
         require_once '../Controlador/ControladorProyecto.php';
         $controlador_proyecto = new ControladorProyecto();
@@ -486,6 +490,7 @@ class ModeloCuantias {
         $telefono_celular = $array_datos_cliente[5];
         $correo = $array_datos_cliente[6];
         $direccion_fiscal = $array_datos_cliente[7];
+        $ci_contacto = $array_datos_cliente[8];
 
         require_once '../Controlador/ControladorProyecto.php';
         $controlador_proyecto = new ControladorProyecto();
@@ -531,7 +536,7 @@ class ModeloCuantias {
                                             $anio = date("Y");
         
         
-        require_once 'fpdf/fpdf.php';
+        require_once '../fpdf/fpdf.php';
         $pdf = new FPDF();
         
         $pdf->AddPage();
@@ -566,15 +571,15 @@ class ModeloCuantias {
                 . "el trámite del Contrato de Servicios para el cumplimiento de "
                 . "partes, con los siguientes datos:"), 0, 'J', FALSE);
         $pdf->Ln(6);
-        $pdf->Cell(160, 2, utf8_decode("a) $nombre_contacto") , 0, 1, 'L');
+        $pdf->Cell(160, 2, utf8_decode("a) Nombre de contacto: $nombre_contacto") , 0, 1, 'L');
         $pdf->Ln(3);
-        $pdf->Cell(160, 2, utf8_decode("b) $nit_ci") , 0, 1, 'L');
+        $pdf->Cell(160, 2, utf8_decode("b) CI de contacto: $ci_contacto") , 0, 1, 'L');
         $pdf->Ln(3);
-        $pdf->Cell(160, 2, utf8_decode("c) $nombre_factura") , 0, 1, 'L');
+        $pdf->Cell(160, 2, utf8_decode("c) Nombre para la factura: $nombre_factura") , 0, 1, 'L');
         $pdf->Ln(3);
-        $pdf->Cell(160, 2, utf8_decode("d) $nit_ci") , 0, 1, 'L');
+        $pdf->Cell(160, 2, utf8_decode("d)Nro. de NIT o Nro. de CI: $nit_ci") , 0, 1, 'L');
         $pdf->Ln(3);
-        $pdf->Cell(160, 2, utf8_decode("e) $direccion_fiscal, $telefono_fijo, $telefono_celular") , 0, 1, 'L');
+        $pdf->Cell(160, 2, utf8_decode("e) Datos de contacto: $direccion_fiscal, $telefono_fijo, $telefono_celular") , 0, 1, 'L');
         $pdf->Ln(7);
         $pdf->MultiCell(160, 6, utf8_decode("Asimismo, solicito viabilizar una "
                 . "primera Orden de pago por el anticipo del $porcentaje%, la cual "
@@ -593,6 +598,8 @@ class ModeloCuantias {
         $pdf->Ln(20);
         $pdf->Ln(3);
         $pdf->Cell(160, 2, utf8_decode($nombre_contacto) , 0, 1, 'C');
+        $pdf->Ln(3);
+        $pdf->Cell(160, 2, utf8_decode($ci_contacto) , 0, 1, 'C');
         $pdf->Ln(3);
         $pdf->Cell(160, 2, utf8_decode($nombre_factura) , 0, 1, 'C');
        

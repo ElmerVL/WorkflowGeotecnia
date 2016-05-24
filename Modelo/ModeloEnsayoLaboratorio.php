@@ -3,6 +3,26 @@ require_once '../Controlador/Conexion.php';
 
 class ModeloEnsayoLaboratorio {
     
+    function actualizar_tiempo($id_proyecto, $cod_ensayo, $direccion) {
+        $con = new Conexion();
+        $c = $con->getConection();
+        $consulta_tiempo_actual = pg_query("select tiempo_total
+                                        from detalle_ensayos 
+                                        where ensayo_laboratorio_idensayo_laboratorio = $id_proyecto and ensayo_idensayo = '$cod_ensayo';");
+        $f = pg_fetch_object($consulta_tiempo_actual);
+        $tiempo_a = $f->tiempo_total;
+        if($direccion==1){
+            $tiempo_total = $tiempo_a+1;
+        } else {
+            $tiempo_total = $tiempo_a-1;
+        }
+        pg_query("UPDATE detalle_ensayos
+                            SET tiempo_total=$tiempo_total
+                          WHERE ensayo_laboratorio_idensayo_laboratorio = $id_proyecto and ensayo_idensayo = '$cod_ensayo';");
+        
+        pg_close($c);
+    }
+    
     function calcular_suma_tiempo_ensayos($id_proyecto) {
         $con = new Conexion();
         $c = $con->getConection();
@@ -20,8 +40,10 @@ class ModeloEnsayoLaboratorio {
         $con = new Conexion();
         $c = $con->getConection();
         
-        $consulta_eliminar_ensayo = pg_query($c, "DELETE FROM detalle_ensayos
-                                        WHERE ensayo_idensayo = '$cod_ensayo' and ensayo_laboratorio_idensayo_laboratorio = $id_proyecto;");
+        pg_query($c, "DELETE FROM formulario_el CASCADE
+                        WHERE detalle_ensayos_ensayo_idensayo = '$cod_ensayo' and detalle_ensayos_ensayo_laboratorio_idensayo_laboratorio = $id_proyecto;");
+        pg_query($c, "DELETE FROM detalle_ensayos
+                        WHERE ensayo_idensayo = '$cod_ensayo' and ensayo_laboratorio_idensayo_laboratorio = $id_proyecto;");
         pg_close($c);
     }
     
@@ -45,18 +67,20 @@ class ModeloEnsayoLaboratorio {
         $usr_ingeniero = $datos_conseguidos->solicitud_ingeniero_usuario_idusuario;
         $metodo_extraccion;
         $codigo=$modelo_ensayo_laboratorio->generar_codigo($id_ensayo, $metodo_extraccion, $punto, $tipo_muestra, $profundidad, $descripcion);
-            pg_query($c, "INSERT INTO muestra(
-            ensayo_laboratorio_solicitud_idsolicitud, ensayo_laboratorio_solicitud_director_iddirector, 
-            ensayo_laboratorio_solicitud_director_usuario_idusuario, ensayo_laboratorio_solicitud_ingeniero_idingeniero, 
-            ensayo_laboratorio_solicitud_ingeniero_usuario_idusuario, ensayo_laboratorio_idensayo_laboratorio, 
-            ubicacion_general, ubicacion_especifica, profundidad, fecha_toma, 
-            metodo_extraccion, punto, tipo_muestra, descripcion, codigo_muestra)
-    VALUES ($id_solicitud, $id_director, 
-            $usr_director, $id_ingeniero, 
-            $usr_ingeniero, $id_ensayo, 
-            '$ub_general', '$ub_especificacion', $profundidad, '$fecha_toma', 
-            '$metodo_extraccion', $punto, '$tipo_muestra', '$descripcion', '$codigo');");
-        
+        pg_query($c, "INSERT INTO muestra(
+                    ensayo_laboratorio_solicitud_idsolicitud, ensayo_laboratorio_solicitud_director_iddirector, 
+                    ensayo_laboratorio_solicitud_director_usuario_idusuario, ensayo_laboratorio_solicitud_ingeniero_idingeniero, 
+                    ensayo_laboratorio_solicitud_ingeniero_usuario_idusuario, ensayo_laboratorio_idensayo_laboratorio, 
+                    ubicacion_general, ubicacion_especifica, profundidad, fecha_toma, 
+                    metodo_extraccion, punto, tipo_muestra, descripcion, codigo_muestra)
+                VALUES ($id_solicitud, $id_director, 
+                    $usr_director, $id_ingeniero, 
+                    $usr_ingeniero, $id_ensayo, 
+                    '$ub_general', '$ub_especificacion', $profundidad, '$fecha_toma', 
+                    '$metodo_extraccion', $punto, '$tipo_muestra', '$descripcion', '$codigo');");
+        pg_query($c, "UPDATE ensayo_laboratorio
+                        SET muestra_registrada='true'
+                        WHERE idensayo_laboratorio = $id_ensayo;");
         pg_close($c);
     }
     
@@ -170,13 +194,13 @@ where solicitud_idsolicitud = idsolicitud and idensayo_laboratorio = $id_ensayo;
         $con = new Conexion();
         $c = $con->getConection();
         $modelo_ensayo_laboratorio = new ModeloEnsayoLaboratorio();
-        $consulta_datos_insertar = pg_query("select solicitud_ingeniero_usuario_idusuario, 
-            solicitud_ingeniero_idingeniero, 
-            solicitud_director_usuario_idusuario, 
-            solicitud_director_iddirector, 
-            solicitud_idsolicitud 
-                                            from ensayo_laboratorio 
-                                            where idensayo_laboratorio = $id_proyecto");
+        $consulta_datos_insertar = pg_query($c, "select solicitud_ingeniero_usuario_idusuario, 
+                    solicitud_ingeniero_idingeniero, 
+                    solicitud_director_usuario_idusuario, 
+                    solicitud_director_iddirector, 
+                    solicitud_idsolicitud 
+            from ensayo_laboratorio 
+            where idensayo_laboratorio = $id_proyecto");
         $f = pg_fetch_object($consulta_datos_insertar);
         $usr_ingeniero = $f->solicitud_ingeniero_usuario_idusuario;
         $id_ingeniero = $f->solicitud_ingeniero_idingeniero;
@@ -193,7 +217,14 @@ where solicitud_idsolicitud = idsolicitud and idensayo_laboratorio = $id_ensayo;
         $precio_ensayo_total = $modelo_ensayo_laboratorio->calcular_precio($id_ensayo, $cant_ensayo);
         $tiempo_unidad = $d_u->duracion_ensayo;
         $tiempo_total = ($d_u->duracion_ensayo)*$cant_ensayo;
-        $consulta_insertar_detalle = pg_query("INSERT INTO detalle_ensayos(
+
+
+        echo 'PST'. $id_ensayo;
+        echo 'TU'. $tiempo_unidad;
+        echo 'TT'. $tiempo_total;
+
+        
+        pg_query($c, "INSERT INTO detalle_ensayos(
             ensayo_laboratorio_solicitud_idsolicitud, 
             ensayo_laboratorio_solicitud_director_iddirector, ensayo_laboratorio_solicitud_director_usuario_idusuario, 
             ensayo_laboratorio_solicitud_ingeniero_idingeniero, ensayo_laboratorio_solicitud_ingeniero_usuario_idusuario, 
@@ -201,29 +232,29 @@ where solicitud_idsolicitud = idsolicitud and idensayo_laboratorio = $id_ensayo;
                 VALUES ($id_solicitud, 
                         $id_director, $usr_director, 
                         $id_ingeniero, $usr_ingeniero, 
-                        $id_proyecto, '$id_ensayo', $cant_ensayo, $precio_ensayo_total, $precio_unitario, $tiempo_unidad, $tiempo_total);");
+                        $id_proyecto, '$id_ensayo', $cant_ensayo, $precio_ensayo_total, $precio_unitario, $tiempo_total, $tiempo_unidad);");
+        pg_query($c, "UPDATE ensayo_laboratorio 
+                        SET ensayos_registrados='true'
+                      WHERE idensayo_laboratorio = $id_proyecto;");
         pg_close($c);
     }
     
     function calcular_precio($id_ensayo, $cant_ensayo){
-        if($cant_ensayo<10){
             $con = new Conexion();
             $c = $con->getConection();
-            $consulta_precio = pg_query("select precio_unitario from ensayo where idensayo = '$id_ensayo' ;");
+        if($cant_ensayo<10){
+            $consulta_precio = pg_query($c, "select precio_unitario from ensayo where idensayo = '$id_ensayo' ;");
             $f = pg_fetch_object($consulta_precio);
             $precio_e = $f->precio_unitario;
             $precio_t = $precio_e*$cant_ensayo;
-            pg_close($c);
         }else{
-            $con = new Conexion();
-            $c = $con->getConection();
-            $consulta_precio = pg_query("select precio_10_muestras from ensayo where idensayo = '$id_ensayo' ;");
+            $consulta_precio = pg_query($c, "select precio_10_muestras from ensayo where idensayo = '$id_ensayo' ;");
             $f = pg_fetch_object($consulta_precio);
             $precio_e = $f->precio_10_muestras;
             $precio_t = $precio_e*$cant_ensayo;
-            pg_close($c);
         }
         return $precio_t;
+        pg_close($c);
     }
     
     function mostrar_resumen_detalle_ensayos_registrados($id_proyecto) {
@@ -252,7 +283,7 @@ where solicitud_idsolicitud = idsolicitud and idensayo_laboratorio = $id_ensayo;
     function mostrar_detalle_ensayos_registrados($id_proyecto) {
         $con = new Conexion();
         $c = $con->getConection();
-        $consulta_arreglo_ensayos = pg_query("select ensayo_idensayo, tipo, categoria, ensayo, cantidad_ensayo, precio_total_ensayo, duracion_ensayo, detalle_ensayos.precio_unitario 
+        $consulta_arreglo_ensayos = pg_query("select ensayo_idensayo, tipo, categoria, ensayo, cantidad_ensayo, precio_total_ensayo, tiempo_total, detalle_ensayos.precio_unitario 
                                         from detalle_ensayos, ensayo 
                                         where ensayo_laboratorio_idensayo_laboratorio = $id_proyecto and ensayo_idensayo = idensayo;");
         $array_datos_ensayos = array();
@@ -264,7 +295,7 @@ where solicitud_idsolicitud = idsolicitud and idensayo_laboratorio = $id_ensayo;
             $cantidad = $f->cantidad_ensayo;
             $precio = $f->precio_total_ensayo;
             $precio_unitario = $f->precio_unitario;
-            $duracion = $f->duracion_ensayo;
+            $duracion = $f->tiempo_total;
             $array_datos_ensayos[] = $id_ensayo;
             $array_datos_ensayos[] = $tipo;
             $array_datos_ensayos[] = $categoria;

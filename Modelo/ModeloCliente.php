@@ -3,16 +3,16 @@ require_once '../Controlador/Conexion.php';
 require_once '../Modelo/ModeloEnsayoLaboratorio.php';
 class ModeloCliente {
     function ingresar_datos_cliente($id_ensayo, $nombre_factura,
-            $nit_ci, $nombre_contacto, $telefono_fijo, $telefono_celular, $correo, $direccion, $tipo_cliente, $t_proyecto) {
+            $nit_ci, $nombre_contacto, $telefono_fijo, $telefono_celular, $correo, $direccion, $tipo_cliente, $t_proyecto, $ci_contacto) {
         $con = new Conexion();
         $c = $con->getConection();
         $modelo_cliente = new ModeloCliente();
         $id_cliente = $modelo_cliente->mostrar_cantidad() + 1;
         pg_query($c, "INSERT INTO cliente(idcliente,
             nombre_factura, nit_ci, nombre_contacto, telefono_fijo, 
-            telefono_celular, correo, direccion_fiscal, tipo_cliente)
+            telefono_celular, correo, direccion_fiscal, tipo_cliente, ci_contacto)
             VALUES ($id_cliente, '$nombre_factura', $nit_ci, '$nombre_contacto', $telefono_fijo, $telefono_celular, 
-                    '$direccion', '$correo', '$tipo_cliente');");
+                    '$direccion', '$correo', '$tipo_cliente', $ci_contacto);");
         if($t_proyecto == 'ensayo de laboratorio')
             $modelo_cliente->registrar_formulario($id_ensayo, $id_cliente);
         else
@@ -120,14 +120,14 @@ class ModeloCliente {
         if($tipo_proyecto == 1){
         $consulta_arreglo_cliente = pg_query("select distinct tipo_cliente, nombre_factura, 
                                                             nit_ci, nombre_contacto, telefono_fijo, telefono_celular, correo, 
-                                                            direccion_fiscal
+                                                            direccion_fiscal, ci_contacto
                                                 from cliente, formulario_EL 
                                                 where detalle_ensayos_ensayo_laboratorio_idensayo_laboratorio = $id_ensayo "
                 . "                                         and cliente_idcliente = idcliente;");
         }else{
             $consulta_arreglo_cliente = pg_query("select distinct tipo_cliente, nombre_factura, 
                                                             nit_ci, nombre_contacto, telefono_fijo, telefono_celular, correo, 
-                                                            direccion_fiscal
+                                                            direccion_fiscal, ci_contacto
                                                 from cliente, formulario_TC 
                                                 where trabajo_campo_idtrabajo_campo = $id_ensayo
                                                 and cliente_idcliente = idcliente;");
@@ -142,7 +142,7 @@ class ModeloCliente {
             $telefono_celular = $f->telefono_celular;
             $correo = $f->correo;
             $direccion_fiscal = $f->direccion_fiscal;
-            
+            $ci_contacto = $f->ci_contacto;
             $array_datos_cliente[] = $tipo_cliente;
             $array_datos_cliente[] = $nombre_factura;
             $array_datos_cliente[] = $nit_ci;
@@ -151,6 +151,7 @@ class ModeloCliente {
             $array_datos_cliente[] = $telefono_celular;
             $array_datos_cliente[] = $correo;
             $array_datos_cliente[] = $direccion_fiscal;
+            $array_datos_cliente[] = $ci_contacto;
         }
         return $array_datos_cliente;
         pg_close($c);

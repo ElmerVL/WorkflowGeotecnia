@@ -1,12 +1,17 @@
 <?php
 session_start();
-$id_usuario = $_SESSION['id_usuario'];
 $rol = $_SESSION['rol'];
+$i_u = $_SESSION['id_usuario'];
+if (!$i_u) {
+    header("Location: ../index.php");
+} 
 ?>
+
 
 <!DOCTYPE html >
 <head>
     <title>WORKFLOW</title>
+    <link rel="shortcut icon" href="../Vista/img/icono">
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="imagetoolbar" content="no" />
     <meta name="keywords" content="" />
@@ -18,7 +23,12 @@ $rol = $_SESSION['rol'];
     <link href="js/custom-theme/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
     <link href="js/custom-theme/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
     <script src="js/jquery-1.7.2.min.js"></script>
-
+    <script src="../Vista/js/jquery-1.3.2.min.js" type="text/javascript"></script>
+        <script>
+        setInterval(function() {
+            $("#noticias").load(location.href+" #noticias>*","");
+        }, 4000);
+        </script>
 </head>
 
 <body>
@@ -30,8 +40,40 @@ $rol = $_SESSION['rol'];
 
         <div id="body">
             <ul id="nav">
+                <?php
+                if($rol == 1){
+                ?>
                 <li class="on"><a href="iuAdministrador.php">Principal</a></li>
-
+                <?php
+                }
+                if($rol == 2){
+                ?>
+                <li class="on"><a href="iuDirector.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 3){
+                ?>
+                <li class="on"><a href="iuContador.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 4){
+                ?>
+                <li class="on"><a href="iuIngeniero.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 5){
+                ?>
+                <li class="on"><a href="iuAuxiliar.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 6){
+                ?>
+                <li class="on"><a href="iuTecnico.php">Principal</a></li>
+                <?php
+                }
+                ?>
+                <li class="on"><a href="iuCalendario.php">Calendario</a></li>
+                <li class="on"><a href="iuWorkFlow.php">Workflow</a></li>
             </ul>
             <div id="content"><div>
                     <div id="main">
@@ -260,16 +302,35 @@ $rol = $_SESSION['rol'];
                         <h2>MENÚ</h2>
                         <ul class="links">
                             <?php
-                            if ($rol == 2)
-                                echo "<li><a href='iuRegistroSolicitud.php'>NUEVA SOLICITUD</a></li>";
+                            if ($rol == 3) {
+                                ?>
+                                <li><a href='iuRegistroSolicitud.php'>NUEVA SOLICITUD</a></li>
+                                <?php
+                            }
+                            if ($rol == 2) {
+                                ?>
+                                <li><a href='iuFiltroReporte.php'>REPORTES</a></li>
+                                <?php
+                            }
                             ?>
-
                             <li><a href="iuTablaProyectos.php?f=0">PROYECTOS</a></li>
-                            <li><a href="../Vista/iuCalendario.php">CALENDARIO</a></li>
+                            <li><a href="iuCalendario.php">CALENDARIO</a></li>
                             <li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>
                         </ul>
-
                     </div>
+                   <div id="noticias" style="background-color: lightsalmon;">
+                            <h2>ULTIMO</h2>
+                            <?php
+                                require_once '../Controlador/ControladorUltimo.php';
+                                $controlador_ultimo = new ControladorUltimo();
+                                $lista = $controlador_ultimo->mostrar_10_filas();
+                                $contador = 0;
+                                        while ($contador <= sizeof($lista) - 1) {
+                                            echo $lista[$contador + 3]."</br>";
+                                            $contador = $contador+4;
+                                        }
+                            ?>
+			</div>
                 </div></div>	
         </div>
 

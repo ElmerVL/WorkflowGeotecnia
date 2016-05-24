@@ -31,6 +31,11 @@ class ModeloAlcance {
             $usr_ingeniero, $id_trabajo, 
             '$antecedente', '$objetivo', '$trabajo_campo', '$trabajo_gabinete', '$trabajo_laboratorio', 
             $duracion, $precio, '$forma_pago', '$r_adicionales');");
+        
+        pg_query($c, "UPDATE trabajo_campo
+                        SET alcance_creado='true', alcance_aprobado='true'
+                      WHERE idtrabajo_campo = $id_trabajo;");
+        
         pg_close($c);
     }
     

@@ -11,6 +11,8 @@ echo $nit_ci = $_POST["nit_ci"];
 echo "<br />";
 echo $nombre_contacto = $_POST["nombre_contacto"];
 echo "<br />";
+echo $ci_contacto = $_POST["ci_contacto"];
+echo "<br />";
 echo $telefono_fijo = $_POST["telefono_fijo"];
 echo "<br />";
 echo $telefono_celular = $_POST["telefono_celular"];
@@ -19,7 +21,9 @@ echo $correo = $_POST["correo"];
 echo "<br />";
 echo $direccion = $_POST["direccion"];
 echo "<br />";
-if($tipo_proyecto == 'ensayo de laboratorio'){
+require_once 'ControladorCliente.php';
+$controlador_cliente = new ControladorCliente();
+if($tipo_proyecto == 'ensayo de laboratorio' && $controlador_cliente->cliente_registrado($id_ensayo, $tipo_proyecto)){
     $f_registrado = $_POST["f_recibido"];
     echo "<br />";
     if($f_registrado){
@@ -30,7 +34,7 @@ echo $precio = $_POST["precio"];
 
 require_once '../Modelo/ModeloCliente.php';
 $modelo_cliente = new ModeloCliente();
-$modelo_cliente->ingresar_datos_cliente($id_ensayo, $nombre_factura, $nit_ci, $nombre_contacto, $telefono_fijo, $telefono_celular, $correo, $direccion, $tipo_institucion, $tipo_proyecto);
+$modelo_cliente->ingresar_datos_cliente($id_ensayo, $nombre_factura, $nit_ci, $nombre_contacto, $telefono_fijo, $telefono_celular, $correo, $direccion, $tipo_institucion, $tipo_proyecto, $ci_contacto);
 
 require_once '../Controlador/ControladorCuantias.php';
 $controlador_cuantias = new ControladorCuantias();

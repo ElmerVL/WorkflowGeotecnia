@@ -1,9 +1,11 @@
 <?php
 session_start();
-if (!$_SESSION['id_usuario']) {
+$rol = $_SESSION['rol'];
+$i_u = $_SESSION['id_usuario'];
+if (!$i_u) {
     header("Location: ../index.php");
 } else {
-    if ($_SESSION['rol'] != 3) {
+    if ($rol != 3) {
         session_destroy();
         header("Location: ../index.php");
     }
@@ -12,58 +14,121 @@ if (!$_SESSION['id_usuario']) {
 
 <!DOCTYPE html >
 <head>
-	<title>WORKFLOW</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<meta http-equiv="imagetoolbar" content="no" />
-	<meta name="keywords" content="" />
-	<meta name="description" content="" />
-	<meta name="author" content="" />
-	<meta name="copyright" content="" />	  
-	<meta name="revisit-after" content="3 days" />
-	<link href="css/style.css" rel="stylesheet" type="text/css" />
+    <title>WORKFLOW</title>
+    <link rel="shortcut icon" href="../Vista/img/icono">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <meta name="copyright" content="" />	  
+    <meta name="revisit-after" content="3 days" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <script src="../Vista/js/jquery-1.3.2.min.js" type="text/javascript"></script>
+        <script>
+        setInterval(function() {
+            $("#noticias").load(location.href+" #noticias>*","");
+        }, 4000);
+        </script>
 </head>
 
 <body>
-<ul class="hide"><li><a href="#body">Skip to content</a></li></ul>
-<div id="container">
-	<div id="header">
+    <ul class="hide"><li><a href="#body">Skip to content</a></li></ul>
+    <div id="container">
+        <div id="header">
             <h1><a href="iuContador.php">Laboratorio de <span>Geotecnia</span></a></h1>		
-	</div>
-    
-	<div id="body">
-		<ul id="nav">
-                    <li class="on"><a href="iuContador.php">Principal</a></li>
-			
-		</ul>
-		<div id="content"><div>
-			<div id="main">
-				<h2>Contador</h2>
-				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Cras suscipit. Vestibulum quis massa. 
-				Suspendisse sed massa id diam aliquet.</p>
-				
-				<ul>
-					<li><span>Duis sodales turpis vel nisl</span></li>
-					<li><span>Sed accumsan diam lacus quis</span></li>
-					<li><span>Posuere vitae, vehicula</span></li>
-					<li><span>Consectetuer adipiscing elit</span></li>
-				</ul>
-				<p>Vestibulum molestie, nisl sed commodo pellentesque, risus justo sollicitudin nisl, sed accumsan 
-				diam lacus quis augue.</p>			
+        </div>
+
+        <div id="body">
+            <ul id="nav">
+                <?php
+                if($rol == 1){
+                ?>
+                <li class="on"><a href="iuAdministrador.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 2){
+                ?>
+                <li class="on"><a href="iuDirector.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 3){
+                ?>
+                <li class="on"><a href="iuContador.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 4){
+                ?>
+                <li class="on"><a href="iuIngeniero.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 5){
+                ?>
+                <li class="on"><a href="iuAuxiliar.php">Principal</a></li>
+                <?php
+                }
+                if($rol == 6){
+                ?>
+                <li class="on"><a href="iuTecnico.php">Principal</a></li>
+                <?php
+                }
+                ?>
+                <li class="on"><a href="iuCalendario.php">Calendario</a></li>
+                <li class="on"><a href="iuWorkFlow.php">Workflow</a></li>
+            </ul>
+            <div id="content"><div>
+                    <div id="main">
+                        <h2>Contador</h2>
+                        <p>Usted como contador puede realizar las siguientes funciones:</p>
+                        <ul>
+                            <li><span><a href="../Vista/iuRegistroSolicitud.php">Registrar nuevas solicitudes</a></span></li>
+                            <li><span><a href="../Vista/iuTablaSolicitudes.php">Ver la lista de solicitudes</a></span></li>
+                            <li><span><a href="../Vista/iuTablaProyectos.php?f=0">Ver la lista de proyectos</a></span></li>
+                            <li><span><a href="../Vista/iuCalendario.php">Ver el calendario de proyectos</a></span></li>
+                            <li><span><a href="../Vista/iuFiltroProyecto.php?f=6&t_p=1">Registrar al cliente de un proyecto-ensayo de laboratorio</a></span></li>
+                            <li><span><a href="../Vista/iuFiltroProyecto.php?f=6&t_p=2">Registrar al cliente de un proyecto-estudio geotecnico</a></span></li>
+                            <li><span><a href="../Vista/iuFiltroProyecto.php?f=7&t_p=0">Registrar el pago de un proyecto</a></span></li>
+                        </ul>			
+                    </div>
+                    <div id="sub">
+                        <h2>MENÚ</h2>
+                        <ul class="links">
+                            <?php
+                            if ($rol == 3) {
+                                ?>
+                                <li><a href='iuRegistroSolicitud.php'>NUEVA SOLICITUD</a></li>
+                                <?php
+                            }
+                            if ($rol == 2) {
+                                ?>
+                                <li><a href='iuFiltroReporte.php'>REPORTES</a></li>
+                                <?php
+                            }
+                            ?>
+                            <li><a href="iuTablaProyectos.php?f=0">PROYECTOS</a></li>
+                            <li><a href="iuCalendario.php">CALENDARIO</a></li>
+                            <li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>
+                        </ul>
+                    </div>
+                    <div id="noticias" style="background-color: lightsalmon;">
+                            <h2>ULTIMO</h2>
+                            <?php
+                                require_once '../Controlador/ControladorUltimo.php';
+                                $controlador_ultimo = new ControladorUltimo();
+                                $lista = $controlador_ultimo->mostrar_10_filas();
+                                $contador = 0;
+                                        while ($contador <= sizeof($lista) - 1) {
+                                            echo $lista[$contador + 3]."</br>";
+                                            $contador = $contador+4;
+                                        }
+                            ?>
 			</div>
-			<div id="sub">
-                            <h2>MENÚ</h2>
-				<ul class="links">
-                                    <li><a href="iuTablaProyectos.php?f=0">PROYECTOS</a></li>
-                                    <li><a href="../Controlador/ControladorFinalizarSesion.php">CERRAR SESION</a></li>
-                                </ul>
-		
-			</div>
-		</div></div>	
-	</div>
-	
-	<div id="footer">
-		<p class="left">&copy; 2014 Jimena Salazar Soto</p>
+                </div></div>	
+        </div>
+
+        <div id="footer">
+            <p class="left">&copy; 2014 Jimena Salazar Soto</p>
         </div>	
-</div>	
+    </div>	
 </body>
 </html>
