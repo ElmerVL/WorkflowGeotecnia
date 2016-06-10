@@ -124,14 +124,6 @@
         }, viewportDebounceRate, { leading: true }) );
       }
 
-      if( opts.position.adjust.cyViewport ){
-        cy.on('pan zoom', $$.util.debounce(function(e){
-          updatePosition(e);
-
-          qtipApi.reposition();
-        }, viewportDebounceRate, { trailing: true }) );
-      }
-
     });
 
     return this; // chainability
@@ -155,22 +147,7 @@
     var qtipApi = qtip.api = qtip.$domEle.qtip('api'); // save api ref
     qtip.$domEle.removeData('qtip'); // remove qtip dom/api ref to be safe
 
-    var updatePosition = function(e){
-      var cOff = container.getBoundingClientRect();
-      var pos = e.cyRenderedPosition;
-      if( !pos || pos.x == null || isNaN(pos.x) ){ return; }
-
-      qtipApi.set('position.adjust.x', cOff.left + pos.x + window.pageXOffset);
-      qtipApi.set('position.adjust.y', cOff.top + pos.y + window.pageYOffset);
-    };
-
-    cy.on( opts.show.event, function(e){
-      if( !opts.show.cyBgOnly || (opts.show.cyBgOnly && e.cyTarget === cy) ){
-        updatePosition(e);
-
-        qtipApi.show();
-      }
-    } );
+    
 
     cy.on( opts.hide.event, function(e){
       if( !opts.hide.cyBgOnly || (opts.hide.cyBgOnly && e.cyTarget === cy) ){

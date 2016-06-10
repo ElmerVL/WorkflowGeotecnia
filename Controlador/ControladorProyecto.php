@@ -25,6 +25,18 @@ class ControladorProyecto {
         $cod_solicitud = $modelo_proyecto->mostrar_cod_solicitud_el($id_proyecto);
         return $cod_solicitud;
     }
+
+    function conseguir_cod_proyecto_tc($id_proyecto) {
+        $modelo_proyecto = new ModeloProyecto();
+        $cod_solicitud = $modelo_proyecto->mostrar_cod_proyecto_tc($id_proyecto);
+        return $cod_solicitud;
+    }
+
+    function conseguir_cod_proyecto_el($id_proyecto) {
+        $modelo_proyecto = new ModeloProyecto();
+        $cod_solicitud = $modelo_proyecto->mostrar_cod_proyecto_el($id_proyecto);
+        return $cod_solicitud;
+    }
     
     function mostrar_tabla($filtro){
         $modelo_solicitud = new ModeloProyecto();
@@ -97,5 +109,16 @@ class ControladorProyecto {
         $modelo_proyecto = new ModeloProyecto();
         $arreglo_datos = $modelo_proyecto->mostrar_datos_proyecto_t_c($id_proyecto);
         return $arreglo_datos;
+    }
+
+    function verificar_informe_aprobado($id_proyecto, $t_proyecto) {
+        $modelo_proyecto = new ModeloProyecto();
+        if($t_proyecto == 1){
+            $cod_proyecto = $modelo_proyecto->mostrar_cod_proyecto_el($id_proyecto);
+        }elseif($t_proyecto == 2){
+            $cod_proyecto = $modelo_proyecto->mostrar_cod_proyecto_tc($id_proyecto);
+        }
+        $aprobado = $modelo_proyecto->verificar_informe_final_aprobado($cod_proyecto);
+        return $aprobado;
     }
 }

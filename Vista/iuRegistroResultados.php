@@ -89,6 +89,7 @@ if (!$i_u) {
                                 require_once '../Controlador/ControladorProyecto.php';
                                 $controlador_proyecto = new ControladorProyecto();
                                 $cod_solicitud = $controlador_proyecto->conseguir_cod_solicitud_el($id_proyecto);
+                                $cod_proyecto = $controlador_proyecto->conseguir_cod_proyecto_el($id_proyecto);
                                 ?>
 
                                 <br />
@@ -111,13 +112,13 @@ if (!$i_u) {
                                                 <div id="dvArrow" class="ArrowExpand" style="background-image: url(CollapsiblePanel/images/27936.png);"></div>
                                             </div>
                                             <div id="dvContent" class="Content" style="display:none">
-                                                <form method="post" action="../Controlador/ControladorSubirArchivo.php?i_p=<?php echo $id_proyecto; ?>&e_l=<?php echo $array_ensayos[$contador]; ?>" enctype='multipart/form-data'>
+                                                <form method="post" action="../Controlador/ControladorSubirArchivo.php?i_p=<?php echo $id_proyecto; ?>&e_l=<?php echo $array_ensayos[$contador]; ?>&i_f=0" enctype='multipart/form-data'>
                                                     <br />
                                                     <h4>Archivo con resultado:</h4>  
                                                     Archivos subidos:
                                                     <br />
                                                     <?php
-                                                    $dir = (isset($_GET['dir'])) ? $_GET['dir'] : "../Archivos/EnsayoLaboratorio/$cod_solicitud/$array_ensayos[$contador]/";
+                                                    $dir = (isset($_GET['dir'])) ? $_GET['dir'] : "../Archivos/EnsayoLaboratorio/$cod_proyecto/$array_ensayos[$contador]/";
                                                     if (file_exists($dir)) {
                                                         $directorio = opendir($dir);
                                                         while ($archivo = readdir($directorio)) {
@@ -125,7 +126,7 @@ if (!$i_u) {
                                                             $dir2 = join("/", $carpetas);
                                                             if ($archivo != "..") {
                                                                 if ($archivo != ".") {
-                                                                    echo "<a href=\"?dir=$dir2\">$archivo </a> <a href=../Controlador/ControladorEliminarArchivo.php?d=$dir&n=$archivo&ip=$id_proyecto&tp=$t_proy> ELIMINAR</a> <br>";
+                                                                    echo "<a href=\"?dir=$dir2\">$archivo </a> <a href=../Controlador/ControladorEliminarArchivo.php?d=$dir&n=$archivo&ip=$id_proyecto&tp=$t_proy&i_f=0> | ELIMINAR</a> <br>";
                                                                 }
                                                             }
                                                         }

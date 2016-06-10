@@ -381,6 +381,29 @@ class ModeloProyecto {
         $cod_solicitud = $f->cod_solicitud;
         return $cod_solicitud;
     }
+
+
+    function mostrar_cod_proyecto_el($id_proyecto) {
+        $con = new Conexion();
+        $c = $con->getConection();
+        $consulta = pg_query($c, "select cod_proyecto
+                                    from ensayo_laboratorio, solicitud
+                                    where solicitud_idsolicitud = idsolicitud and idensayo_laboratorio = $id_proyecto;");
+        $f = pg_fetch_object($consulta);
+        $cod_proyecto = $f->cod_proyecto;
+        return $cod_proyecto;
+    }
+
+    function mostrar_cod_proyecto_tc($id_proyecto) {
+        $con = new Conexion();
+        $c = $con->getConection();
+        $consulta = pg_query($c, "select cod_proyecto
+                                    from trabajo_campo, solicitud
+                                    where solicitud_idsolicitud = idsolicitud and idtrabajo_campo = $id_proyecto;");
+        $f = pg_fetch_object($consulta);
+        $cod_proyecto = $f->cod_proyecto;
+        return $cod_proyecto;
+    }
     
     
     function mostrar_lista_e_l() {
@@ -421,9 +444,27 @@ class ModeloProyecto {
         }
         return $array_proyectos;
     }
-    
-    
-    
+
+    function set_informe_aprobado($cod_proyecto) {
+        $con = new Conexion();
+        $c = $con->getConection();
+
+        pg_query($c, "update solicitud
+                      set informe_aprobado = TRUE
+                      where cod_proyecto = '$cod_proyecto';");
+
+    }
+
+    function verificar_informe_final_aprobado($cod_proyecto) {
+        $con = new Conexion();
+        $c = $con->getConection();
+        $consulta_aprobado = pg_query($c, "select informe_aprobado
+                                    from solicitud
+                                    where cod_proyecto = '$cod_proyecto';");
+        $r = pg_fetch_object($consulta_aprobado);
+        $aprobado = $r->informe_aprobado;
+        return $aprobado;
+    }
 }
 
 

@@ -95,7 +95,8 @@ if (!$i_u) {
                                         <li><span><a href="../Vista/iuFiltroProyecto.php?f=3&t_p=1">Crear el alcance para un proyecto</a></span></li>
                                         <li><span><a href="../Vista/iuFiltroProyecto.php?f=4&t_p=1">Ver el alcance para un proyecto</a></span></li>
                                         <li><span><a href="../Vista/iuFiltroProyecto.php?f=5&t_p=2">Registrar resultados de un trabajo de campo</a></span></li>
-                                    </ul>
+                                    </ul></br>
+                                    <li><span><a href="../Vista/iuRegistroInformeFinal.php">Cargar un informe final</a></span></li>
 				</ul>				
 			</div>
 			<div id="sub">

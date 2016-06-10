@@ -1,0 +1,202 @@
+-- STORED PROCEDURES
+
+-- Function: clasificar_solicitud()
+
+-- DROP FUNCTION clasificar_solicitud();
+
+CREATE OR REPLACE FUNCTION clasificar_solicitud()
+  RETURNS trigger AS
+$BODY$
+    BEGIN
+    IF NEW.tipo = 'ensayo de laboratorio' THEN
+           INSERT INTO ensayo_laboratorio(
+            solicitud_ingeniero_usuario_idusuario,
+            solicitud_ingeniero_idingeniero, solicitud_director_usuario_idusuario,
+            solicitud_director_iddirector, solicitud_idsolicitud)
+	    VALUES (NEW.ingeniero_usuario_idusuario,
+		    NEW.ingeniero_idingeniero, NEW.director_usuario_idusuario,
+		    NEW.director_iddirector, NEW.idsolicitud);
+    END IF;
+    IF NEW.tipo = 'trabajo de campo' THEN
+           INSERT INTO trabajo_campo(
+            solicitud_ingeniero_usuario_idusuario, solicitud_ingeniero_idingeniero,
+            solicitud_director_usuario_idusuario, solicitud_director_iddirector,
+            solicitud_idsolicitud, alcance_creado)
+	    VALUES (NEW.ingeniero_usuario_idusuario,
+		    NEW.ingeniero_idingeniero, NEW.director_usuario_idusuario,
+		    NEW.director_iddirector, NEW.idsolicitud, 'f');
+    END IF;
+    RETURN NEW;
+    END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION clasificar_solicitud()
+  OWNER TO postgres;
+
+
+-- Function: insertar_actualizacion_entrega()
+
+-- DROP FUNCTION insertar_actualizacion_entrega();
+
+CREATE OR REPLACE FUNCTION insertar_actualizacion_entrega()
+  RETURNS trigger AS
+$BODY$
+    BEGIN
+    IF NEW.informe_entregado != OLD.informe_entregado
+    THEN
+    INSERT INTO bitacora_principales(
+            actividad, fecha, id_solicitud)
+                VALUES ('Informe Final Entregado', current_timestamp, OLD.idsolicitud);
+    END IF;
+    RETURN NEW;
+    END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION insertar_actualizacion_entrega()
+  OWNER TO postgres;
+
+
+-- Function: insertar_actualizacion_habilitacion()
+
+-- DROP FUNCTION insertar_actualizacion_habilitacion();
+
+CREATE OR REPLACE FUNCTION insertar_actualizacion_habilitacion()
+  RETURNS trigger AS
+$BODY$
+    BEGIN
+    IF NEW.habilitado != OLD.habilitado
+    THEN
+    INSERT INTO bitacora_principales(
+            actividad, fecha, id_solicitud)
+                VALUES ('Nueva Solicitud Habilitada', current_timestamp, OLD.idsolicitud);
+    END IF;
+    RETURN NEW;
+    END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION insertar_actualizacion_habilitacion()
+  OWNER TO postgres;
+
+
+-- Function: insertar_actualizacion_pago()
+
+-- DROP FUNCTION insertar_actualizacion_pago();
+
+CREATE OR REPLACE FUNCTION insertar_actualizacion_pago()
+  RETURNS trigger AS
+$BODY$
+    BEGIN
+    IF NEW.anticipo_pagado != OLD.anticipo_pagado
+    THEN
+    INSERT INTO bitacora_principales(
+            actividad, fecha, id_solicitud)
+                VALUES ('Anticipo Pagado', current_date, OLD.solicitud_idsolicitud);
+    END IF;
+    IF NEW.saldo_pagado != OLD.saldo_pagado
+    THEN
+    INSERT INTO bitacora_principales(
+            actividad, fecha, id_solicitud)
+                VALUES ('Saldo Pagado', current_date, OLD.solicitud_idsolicitud);
+    END IF;
+    RETURN NEW;
+    END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION insertar_actualizacion_pago()
+  OWNER TO postgres;
+
+
+-- Function: insertar_alcance_creado()
+
+-- DROP FUNCTION insertar_alcance_creado();
+
+CREATE OR REPLACE FUNCTION insertar_alcance_creado()
+  RETURNS trigger AS
+$BODY$
+    BEGIN
+    IF NEW.alcance_creado != OLD.alcance_creado
+    THEN
+    INSERT INTO bitacora_principales(
+            actividad, fecha, id_solicitud)
+                VALUES ('Alcance creado', current_date, OLD.solicitud_idsolicitud);
+    END IF;
+    RETURN NEW;
+    END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION insertar_alcance_creado()
+  OWNER TO postgres;
+
+
+
+-- Function: insertar_estado_pago()
+
+-- DROP FUNCTION insertar_estado_pago();
+
+CREATE OR REPLACE FUNCTION insertar_estado_pago()
+  RETURNS trigger AS
+$BODY$
+    BEGIN
+    INSERT INTO estado_pago(
+            solicitud_ingeniero_usuario_idusuario, solicitud_ingeniero_idingeniero,
+            solicitud_director_usuario_idusuario, solicitud_director_iddirector,
+            solicitud_idsolicitud, porcentaje_anticipo, anticipo_pagado,
+            porcentaje_saldo, saldo_pagado)
+                VALUES (NEW.ingeniero_usuario_idusuario, NEW.ingeniero_idingeniero,
+            NEW.director_usuario_idusuario, NEW.director_iddirector,
+            NEW.idsolicitud, 0, 'false',
+                        0, 'false');
+    RETURN NEW;
+    END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION insertar_estado_pago()
+  OWNER TO postgres;
+
+
+
+-- Function: insertar_muestra()
+
+-- DROP FUNCTION insertar_muestra();
+
+CREATE OR REPLACE FUNCTION insertar_muestra()
+  RETURNS trigger AS
+$BODY$
+    BEGIN
+    INSERT INTO bitacora_principales(
+            actividad, fecha, id_solicitud)
+                VALUES ('Nueva Muestra Registrada', current_timestamp, NEW.ensayo_laboratorio_solicitud_idsolicitud);
+    RETURN NEW;
+    END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION insertar_muestra()
+  OWNER TO postgres;
+
+
+
+-- Function: insertar_solicitud()
+
+-- DROP FUNCTION insertar_solicitud();
+
+CREATE OR REPLACE FUNCTION insertar_solicitud()
+  RETURNS trigger AS
+$BODY$
+    BEGIN
+    INSERT INTO bitacora_principales(
+            actividad, fecha, id_solicitud)
+                VALUES ('Nueva Solicitud', current_timestamp, NEW.idsolicitud);
+    RETURN NEW;
+    END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION insertar_solicitud()
+  OWNER TO postgres;

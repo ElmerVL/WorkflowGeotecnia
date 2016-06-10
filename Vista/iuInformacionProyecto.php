@@ -209,7 +209,7 @@ if (!$i_u) {
                                             echo "<a type='button' class='btn2' name='submit' href='iuRegistroCliente.php?i_p=$id_proyecto&t=".$_GET['t']."'>Registrar cliente</a><br /><br />";
                                         elseif ($rol == 4)
                                             echo "<a type='button' class='btn2' name='submit' href='iuRegistroEnsayos.php?i_p=$id_proyecto&f_t=1'>Registrar Ensayo</a><br /><br />";
-                                        elseif ($rol == 5)
+                                        elseif ($rol == 5 || $rol == 6)
                                             echo "<a type='button' class='btn2' name='submit' href='iuRegistroResultados.php?i_p=$id_proyecto&t_p=1'>Registrar Resultados</a><br /><br />";
                                         
                                         ?>
@@ -293,6 +293,11 @@ if (!$i_u) {
                                         echo "NO EXISTE ALCANCE";
                                 }
                             }
+                            $tipo = $_GET['t'];
+                            if ($rol == 4)
+                                echo "<br /><a type='button' class='btn2' name='submit' href='iuRegistroInformeFinal.php?i_p=$id_proyecto&t_p=$tipo'>Registrar Informe Final</a>";
+                            elseif ($rol == 2)
+                                echo "<br /><a type='button' class='btn2' name='submit' href='iuInformeFinal.php?i_p=$id_proyecto&t_p=$tipo'>Ver Informe Final</a>";
                                     ?>   
 
 

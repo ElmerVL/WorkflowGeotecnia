@@ -79,7 +79,7 @@ $i_u = $_SESSION['id_usuario'];
                         width: 100%;
                         height: 100%;">
                             
-                        </div>                       
+                        </div>
                         <br /><br /><br /><br /><br /><br /><br />
                         <br /><br /><br /><br /><br /><br /><br />
                         <br /><br /><br /><br /><br /><br /><br />
@@ -302,6 +302,8 @@ while ($cont12 <= sizeof($arreglo_nodo12) - 1) {
     $(function() { // on dom ready
 
         $('#cy').cytoscape({
+            minZoom: 0.99,
+            maxZoom: 1.0,
             layout: {
                 name: 'grid'
             },
