@@ -351,7 +351,7 @@ if (!$i_u) {
                         <?php 
 
                         }else{
-                            echo "Proyecto No Habilitado por el Director";
+                            echo "<h7>Proyecto No Habilitado por el Director</h7>";
                         }
                     }
                         ?>

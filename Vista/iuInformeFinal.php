@@ -120,7 +120,7 @@ if (!$i_u) {
                                 ?>
                                 <br />
                                 <?php
-                                if($controlador_proyecto->verificar_informe_aprobado($id_proyecto, $t_proy)) {
+                                if($controlador_proyecto->verificar_informe_aprobado($id_proyecto, $t_proy) == 't') {
                                     echo "<br /><h3>INFORME APROBADO</h3>";
                                 } elseif ($existen_resultados){
                                     ?>

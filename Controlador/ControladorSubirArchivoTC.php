@@ -48,3 +48,4 @@ if ($trabajo == 3) {
         move_uploaded_file($nombreTemporalArchivo, $destino);
     }
 }
+header("Location: ../Vista/iuRegistroResultados.php?i_p=$id_proyecto&t_p=2");

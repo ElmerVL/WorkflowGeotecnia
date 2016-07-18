@@ -201,7 +201,9 @@ if (!$i_u) {
                                 }else{
                                     echo "<form method='post' action = '../Controlador/ControladorObservacionesDirector.php?i_p=$id_proyecto'>";
                             ?>
-                            <textarea class="ckeditor" cols="52,7" id="editor1" name="antecedente" rows="10"></textarea>    
+                            <textarea class="ckeditor" cols="52,7" id="editor1" name="observaciones" rows="10"></textarea>
+                            <br />
+                            <input type='submit' class='btn2' value='Guardar observacion' />
                             </form>
                             <?php
                                 }

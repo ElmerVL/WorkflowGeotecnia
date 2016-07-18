@@ -221,7 +221,7 @@ if (!$i_u) {
                                             <br />
                                             <br />
                                             <h4>N° de NIT o N° de CI:</h4>
-                                            <input type="text" name="nit_ci" class="login_input" required="required"/>
+                                            <input type="number" name="nit_ci" class="login_input" required="required"/>
                                             <br />
                                             <br />
                                             <h4>Nombre de la persona de contacto:</h4>
@@ -229,15 +229,15 @@ if (!$i_u) {
                                             <br />
                                             <br />
                                             <h4>CI de la persona de contacto:</h4>
-                                            <input type="text" name="ci_contacto" class="login_input" required="required"/>
+                                            <input type="number" name="ci_contacto" class="login_input" required="required"/>
                                             <br />
                                             <br />
                                             <h4>N° de telefono fijo:</h4>
-                                            <input type="text" name="telefono_fijo" class="login_input" required="required"/>
+                                            <input type="number" name="telefono_fijo" class="login_input" required="required"/>
                                             <br />
                                             <br />
                                             <h4>N° de telefono celular:</h4>
-                                            <input type="text" name="telefono_celular" class="login_input" required="required"/>
+                                            <input type="number" name="telefono_celular" class="login_input" required="required"/>
                                             <br />
                                             <br />
                                             <h4>Correo electrónico de contacto:</h4>

@@ -268,17 +268,17 @@ if (!$i_u) {
                                 
                                 if ($alcance_creado) {
                                     if ($rol == 2)
-                                        echo "<a type='button' class='btn2' name='submit' href='iuInformacionAlcance.php?i_p=$id_proyecto&o=f'>Ver alcance</a>";
+                                        echo "<a type='button' class='btn2' name='submit' href='iuInformacionAlcance.php?i_p=$id_proyecto&o=f'>Ver alcance</a><br />";
                                     elseif ($rol == 3){
                                         echo "<a type='button' class='btn2' name='submit' href='iuInformacionAlcance.php?i_p=$id_proyecto&o=f'>Ver alcance</a><br /><br />";
                                         echo "<a type='button' class='btn2' name='submit' href='iuRegistroCliente.php?i_p=$id_proyecto&t=".$_GET['t']."'>Registrar cliente</a><br /><br />";
                                     }elseif ($rol == 4)
-                                        echo "<a type='button' class='btn2' name='submit' href='iuInformacionAlcance.php?i_p=$id_proyecto&o=f'>Ver alcance</a>";
+                                        echo "<a type='button' class='btn2' name='submit' href='iuInformacionAlcance.php?i_p=$id_proyecto&o=f'>Ver alcance</a><br />";
                                     elseif ($rol == 5){
-                                        echo "<a type='button' class='btn2' name='submit' href='iuInformacionAlcance.php?i_p=$id_proyecto&o=f'>Ver alcance</a>";
+                                        echo "<a type='button' class='btn2' name='submit' href='iuInformacionAlcance.php?i_p=$id_proyecto&o=f'>Ver alcance</a><br />";
                                         echo "</br></br><a type='button' class='btn2' name='submit' href='iuRegistroResultados.php?i_p=$id_proyecto&t_p=2'>Registrar Resultados</a><br /><br />";
                                     } elseif ($rol == 6)
-                                        echo "<a type='button' class='btn2' name='submit' href='iuInformacionAlcance.php?i_p=$id_proyecto&o=f'>Ver alcance</a>";
+                                        echo "<a type='button' class='btn2' name='submit' href='iuInformacionAlcance.php?i_p=$id_proyecto&o=f'>Ver alcance</a><br />";
                                     
                                 }else{
                                     if ($rol == 2)

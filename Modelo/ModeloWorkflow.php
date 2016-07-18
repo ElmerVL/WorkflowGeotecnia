@@ -22,7 +22,7 @@ class ModeloWorkflow {
         $array_solicitudes = array();
         $array_solicitudes[] = "";
         while ($f = pg_fetch_object($consulta)) {
-            $cod_proyecto = $f->cod_proyecto;
+            $cod_proyecto = $f->cod_solicitud;
             $array_solicitudes[] = $cod_proyecto;
         }
         return $array_solicitudes;

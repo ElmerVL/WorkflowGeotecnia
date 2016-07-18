@@ -150,9 +150,7 @@ if (!$i_u) {
                                 <br />
                                 <select name='cbox_ingenieros' id="f3" size=1>
                                 </select>
-                                <br /><br />
-                                <h4>Fecha:</h4>
-                                <input type="date" name="fecha" id="fecha_inicio" placeholder="Seleccione una fecha" required="required" />
+
                                 <input type="submit" class="btn2" name="submit" value="Registrar" />                            
 
                             </div>
